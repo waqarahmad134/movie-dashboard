@@ -25,7 +25,7 @@ import {
 import axios from 'axios';
 import { BASE_URL } from '../utilities/URL';
 
-export default function ProductCategories() {
+export default function Categories() {
   const { data, reFetch } = GetAPI('admin/product_categories');
   const [loader, setLoader] = useState(false);
   const [disabled, setDisabled] = useState(false);
@@ -134,13 +134,13 @@ export default function ProductCategories() {
   return (
     <div>
       <DefaultLayout>
-        <Breadcrumb pageName="All Product Categories" />
+        <Breadcrumb pageName="All Category" />
 
         <button
           onClick={() => setAddModal(true)}
           className="py-2.5 px-4 rounded bg-black text-white font-medium border mb-6"
         >
-          Add Product Category
+          Add New Category
         </button>
         <Modal onClose={closeAddModal} isOpen={addModal} size="xl" isCentered>
           <ModalOverlay />

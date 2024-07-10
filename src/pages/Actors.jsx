@@ -25,8 +25,9 @@ import {
 import axios from 'axios';
 import { BASE_URL } from '../utilities/URL';
 
-export default function TailorCategories() {
-  const { data, reFetch } = GetAPI('admin/tailorCategories');
+
+export default function Actors() {
+    const { data, reFetch } = GetAPI('admin/product_categories');
     const [loader, setLoader] = useState(false);
     const [disabled, setDisabled] = useState(false);
     const [addProdCat, setAddProdCat] = useState({
@@ -63,9 +64,10 @@ export default function TailorCategories() {
         info_toaster("Please Enter Category's Title");
       } else {
         setLoader(true);
-        let res = await PostAPI('admin/addTailorCategories', {
+        let res = await PostAPI('admin/addProductCategories', {
           title: addProdCat.title,
         });
+        console.log(res?.data)
         if (res?.data?.status === '1') {
           reFetch();
           setLoader(false);
@@ -83,14 +85,13 @@ export default function TailorCategories() {
     const updateProdCatFunc = async (e) => {
       e.preventDefault();
       if (updateProdCat.updateName === '') {
-        info_toaster('Please enter your Update Name');
+        info_toaster('Please enter your UpdateName');
       } else {
         setLoader(true);
-        let res = await PutAPI(`admin/editTailorCategories`, {
+        let res = await PutAPI(`admin/editProductCategories`, {
           id: updateProdCat.id,
           title: updateProdCat.title,
         });
-        console.log(res?.data);
         if (res?.data?.status === '1') {
           reFetch();
           setLoader(false);
@@ -109,8 +110,7 @@ export default function TailorCategories() {
   
     const deletePC = async (id) => {
       setDisabled(true);
-      let res = await DeleteAPI(`admin/deleteTailorCategories/${id}`);
-      console.log(res?.data);
+      let res = await DeleteAPI(`admin/deletePC/${id}`);
       if (res?.data?.status === '1') {
         reFetch();
         success_toaster(res?.data?.message);
@@ -122,7 +122,7 @@ export default function TailorCategories() {
     };
   
     function handleStatus(id) {
-      axios.get(BASE_URL + `admin/updateTailorCategoriesStatus/${id}`).then((dat) => {
+      axios.get(BASE_URL + `admin/updatePCStatus/${id}`).then((dat) => {
         console.log(dat?.data);
         if (dat?.data?.status === '1') {
           reFetch();
@@ -135,13 +135,13 @@ export default function TailorCategories() {
     return (
       <div>
         <DefaultLayout>
-          <Breadcrumb pageName="All Tailor Categories" />
+          <Breadcrumb pageName="All Category" />
   
           <button
             onClick={() => setAddModal(true)}
             className="py-2.5 px-4 rounded bg-black text-white font-medium border mb-6"
           >
-            Add Tailor Category
+            Add New Category
           </button>
           <Modal onClose={closeAddModal} isOpen={addModal} size="xl" isCentered>
             <ModalOverlay />
@@ -158,7 +158,7 @@ export default function TailorCategories() {
                     <div className="h-40">
                       <div className="space-y-1">
                         <label className={labelStyle} htmlFor="title">
-                          Tailor Category Name
+                          Product Category Name
                         </label>
                         <input
                           value={addProdCat?.title}
@@ -166,7 +166,7 @@ export default function TailorCategories() {
                           type="text"
                           name="title"
                           id="title"
-                          placeholder="Tailor Category Name"
+                          placeholder="Product Category Name"
                           className={inputStyle}
                         />
                       </div>
@@ -205,7 +205,7 @@ export default function TailorCategories() {
             <ModalContent>
               <form>
                 <ModalHeader>
-                  <h1 className="text-center">Update Tailor Category</h1>
+                  <h1 className="text-center">Update Product Category</h1>
                 </ModalHeader>
                 <ModalCloseButton />
                 {loader ? (
@@ -223,7 +223,7 @@ export default function TailorCategories() {
                           type="text"
                           name="title"
                           id="updateName"
-                          placeholder="Tailor Category Name"
+                          placeholder="Product Category Name"
                           className={inputStyle}
                         />
                       </div>

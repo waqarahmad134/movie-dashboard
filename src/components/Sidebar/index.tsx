@@ -109,28 +109,51 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   }`}
                 >
                   Dashboard
-                </NavLink>
-
-              
-               
-                
+                </NavLink>               
                 <NavLink
-                  to="/orders"
+                  to="/categories"
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes('orders') && 'bg-graydark dark:bg-meta-4'
-                  }`}
-                >
-                  Movies
-                </NavLink>
-               
-                <NavLink
-                  to="/tailor-categories"
-                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes('tailor-categories') &&
+                    pathname.includes('categories') &&
                     'bg-graydark dark:bg-meta-4'
                   }`}
                 >
                   Categories
+                </NavLink>
+                <NavLink
+                  to="/actors"
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                    pathname.includes('actors') &&
+                    'bg-graydark dark:bg-meta-4'
+                  }`}
+                >
+                  Actors
+                </NavLink>
+                <NavLink
+                  to="/actress"
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                    pathname.includes('actress') &&
+                    'bg-graydark dark:bg-meta-4'
+                  }`}
+                >
+                  Actress
+                </NavLink>
+                <NavLink
+                  to="/south-actors"
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                    pathname.includes('south-actors') &&
+                    'bg-graydark dark:bg-meta-4'
+                  }`}
+                >
+                  South Actors
+                </NavLink>
+                <NavLink
+                  to="/qualities"
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                    pathname.includes('qualities') &&
+                    'bg-graydark dark:bg-meta-4'
+                  }`}
+                >
+                  Movie Qualtiy
                 </NavLink>
               </li>
             </ul>

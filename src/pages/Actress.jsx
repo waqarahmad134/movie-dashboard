@@ -25,9 +25,8 @@ import {
 import axios from 'axios';
 import { BASE_URL } from '../utilities/URL';
 
-
-export default function ShopCategories() {
-    const { data, reFetch } = GetAPI('admin/shopCategories');
+export default function Actress() {
+    const { data, reFetch } = GetAPI('admin/product_categories');
     const [loader, setLoader] = useState(false);
     const [disabled, setDisabled] = useState(false);
     const [addProdCat, setAddProdCat] = useState({
@@ -64,9 +63,10 @@ export default function ShopCategories() {
         info_toaster("Please Enter Category's Title");
       } else {
         setLoader(true);
-        let res = await PostAPI('admin/addShopCategories', {
+        let res = await PostAPI('admin/addProductCategories', {
           title: addProdCat.title,
         });
+        console.log(res?.data)
         if (res?.data?.status === '1') {
           reFetch();
           setLoader(false);
@@ -84,14 +84,13 @@ export default function ShopCategories() {
     const updateProdCatFunc = async (e) => {
       e.preventDefault();
       if (updateProdCat.updateName === '') {
-        info_toaster('Please enter your Update Name');
+        info_toaster('Please enter your UpdateName');
       } else {
         setLoader(true);
-        let res = await PutAPI(`admin/editShopCategories`, {
+        let res = await PutAPI(`admin/editProductCategories`, {
           id: updateProdCat.id,
           title: updateProdCat.title,
         });
-        console.log(res?.data);
         if (res?.data?.status === '1') {
           reFetch();
           setLoader(false);
@@ -110,11 +109,11 @@ export default function ShopCategories() {
   
     const deletePC = async (id) => {
       setDisabled(true);
-      let res = await DeleteAPI(`admin/deleteShopCategories/${id}`);
-      console.log(res?.data);
+      let res = await DeleteAPI(`admin/deletePC/${id}`);
       if (res?.data?.status === '1') {
         reFetch();
         success_toaster(res?.data?.message);
+        setDisabled(false);
       } else {
         error_toaster(res?.data?.message);
         setDisabled(false);
@@ -122,7 +121,7 @@ export default function ShopCategories() {
     };
   
     function handleStatus(id) {
-      axios.get(BASE_URL + `admin/updateShopCategoriesStatus/${id}`).then((dat) => {
+      axios.get(BASE_URL + `admin/updatePCStatus/${id}`).then((dat) => {
         console.log(dat?.data);
         if (dat?.data?.status === '1') {
           reFetch();
@@ -135,13 +134,13 @@ export default function ShopCategories() {
     return (
       <div>
         <DefaultLayout>
-          <Breadcrumb pageName="All Shops Categories" />
+          <Breadcrumb pageName="All Category" />
   
           <button
             onClick={() => setAddModal(true)}
             className="py-2.5 px-4 rounded bg-black text-white font-medium border mb-6"
           >
-            Add Shop Category
+            Add New Category
           </button>
           <Modal onClose={closeAddModal} isOpen={addModal} size="xl" isCentered>
             <ModalOverlay />
@@ -158,7 +157,7 @@ export default function ShopCategories() {
                     <div className="h-40">
                       <div className="space-y-1">
                         <label className={labelStyle} htmlFor="title">
-                          Shop Category Name
+                          Product Category Name
                         </label>
                         <input
                           value={addProdCat?.title}
@@ -166,7 +165,7 @@ export default function ShopCategories() {
                           type="text"
                           name="title"
                           id="title"
-                          placeholder="Shop Category Name"
+                          placeholder="Product Category Name"
                           className={inputStyle}
                         />
                       </div>
@@ -205,7 +204,7 @@ export default function ShopCategories() {
             <ModalContent>
               <form>
                 <ModalHeader>
-                  <h1 className="text-center">Update Shop Category</h1>
+                  <h1 className="text-center">Update Product Category</h1>
                 </ModalHeader>
                 <ModalCloseButton />
                 {loader ? (
@@ -223,7 +222,7 @@ export default function ShopCategories() {
                           type="text"
                           name="title"
                           id="updateName"
-                          placeholder="Shop Category Name"
+                          placeholder="Product Category Name"
                           className={inputStyle}
                         />
                       </div>

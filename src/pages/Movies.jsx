@@ -165,19 +165,19 @@ export default function Movies() {
 
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="All Products" />
+      <Breadcrumb pageName="All Movies" />
       <button
         onClick={() => setAddModal(true)}
         className="py-2.5 px-4 rounded bg-black text-white font-medium border mb-6"
       >
-        Add New Product
+        Add New Movie
       </button>
       <Modal onClose={closeAddModal} isOpen={addModal} size="xl" isCentered>
         <ModalOverlay />
         <ModalContent>
           <form>
             <ModalHeader>
-              <h1 className="text-center">Add Product</h1>
+              <h1 className="text-center">Add Movie</h1>
             </ModalHeader>
             <ModalCloseButton />
             {loader ? (

@@ -6,16 +6,15 @@ import { ToastContainer } from 'react-toastify';
 import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
 import ECommerce from './pages/Dashboard/ECommerce';
-import ProductCategories from './pages/ProductCategories';
-import Users from './pages/Users';
-import Shops from './pages/Shops';
-import Tailors from './pages/Tailors';
-import Orders from './pages/Orders';
-import ShopCategories from './pages/ShopCategories';
-import TailorCategories from './pages/TailorCategories';
 import SignIn from './pages/Authentication/SignIn';
 import PrivateRoute from './components/PrivateRoute';
 import Movies from './pages/Movies';
+import Categories from './pages/Categories';
+import Actors from './pages/Actors';
+import Actress from './pages/Actress';
+import SouthActor from './pages/SouthActors';
+import SouthActors from './pages/SouthActors';
+import Qualities from './pages/Qualities';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -45,7 +44,7 @@ function App() {
               </>
             }
           />
-          <Route
+          {/* <Route
             index
             path="/"
             element={
@@ -58,9 +57,9 @@ function App() {
                 }
               />
             }
-          />
+          /> */}
           <Route
-            path="/movies"
+            path="/"
             element={
               <PrivateRoute
                 element={
@@ -73,96 +72,72 @@ function App() {
             }
           />
           <Route
-            path="/product-categories"
+            path="/categories"
             element={
               <PrivateRoute
                 element={
                   <>
-                    <PageTitle title="Products Categories | Admin Dashboard" />
-                    <ProductCategories />
+                    <PageTitle title="Categories | Admin Dashboard" />
+                    <Categories />
                   </>
                 }
               />
             }
           />
           <Route
-            path="/shop-categories"
+            path="/actors"
             element={
               <PrivateRoute
                 element={
                   <>
-                    <PageTitle title="Shop Categories | Admin Dashboard" />
-                    <ShopCategories />
+                    <PageTitle title="Categories | Admin Dashboard" />
+                    <Actors />
                   </>
                 }
               />
             }
           />
           <Route
-            path="/tailor-categories"
+            path="/actress"
             element={
               <PrivateRoute
                 element={
                   <>
-                    <PageTitle title="Tailor Categories | Admin Dashboard" />
-                    <TailorCategories />
+                    <PageTitle title="Categories | Admin Dashboard" />
+                    <Actress />
                   </>
                 }
               />
             }
           />
           <Route
-            path="/users"
+            path="/south-actors"
             element={
               <PrivateRoute
                 element={
                   <>
-                    <PageTitle title="All Users | Admin Dashboard" />
-                    <Users />
+                    <PageTitle title="Categories | Admin Dashboard" />
+                    <SouthActors />
                   </>
                 }
               />
             }
           />
           <Route
-            path="/shops"
+            path="/qualities"
             element={
               <PrivateRoute
                 element={
                   <>
-                    <PageTitle title="All Shops | Admin Dashboard" />
-                    <Shops />
+                    <PageTitle title="Categories | Admin Dashboard" />
+                    <Qualities />
                   </>
                 }
               />
             }
           />
-          <Route
-            path="/tailors"
-            element={
-              <PrivateRoute
-                element={
-                  <>
-                    <PageTitle title="All Tailors | Admin Dashboard" />
-                    <Tailors />
-                  </>
-                }
-              />
-            }
-          />
-          <Route
-            path="/orders"
-            element={
-              <PrivateRoute
-                element={
-                  <>
-                    <PageTitle title="All Orders | Admin Dashboard" />
-                    <Orders />
-                  </>
-                }
-              />
-            }
-          />
+        
+
         </Routes>
       </ChakraProvider>
     </>
