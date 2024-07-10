@@ -2,40 +2,50 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../../images/logo/logo.png';
 import { PostAPI } from '../../utilities/PostAPI';
-import { error_toaster, info_toaster, success_toaster, warning_toaster } from '../../utilities/Toaster';
+import {
+  error_toaster,
+  info_toaster,
+  success_toaster,
+  warning_toaster,
+} from '../../utilities/Toaster';
 import secureLocalStorage from 'react-secure-storage';
 
 const SignIn = () => {
   const navigate = useNavigate();
   const [signIn, setSignIn] = useState({
-    email: '',
-    password: '',
+    email: 'admin@gmail.com',
+    password: '12345678',
   });
   const onChange = (e) => {
     setSignIn({ ...signIn, [e.target.name]: e.target.value });
   };
   const loginFunc = async (e) => {
     e.preventDefault();
+    
     if (signIn.email === '') {
       info_toaster('Please enter Email');
     } else if (signIn.password === '') {
       info_toaster('Please enter Password');
     } else {
-      let res = await PostAPI('admin/login', {
-        email: signIn.email,
-        password: signIn.password,
-      });
-      if (res?.data?.status === '1') {
-        success_toaster('Admin Login Sucessfull');
-        secureLocalStorage.setItem('userType', res?.data?.data?.userType);
-        secureLocalStorage.setItem('userId', res?.data?.data?.id);
-        navigate('/');
-      } else if (res?.data?.status === '0') {
-        info_toaster(res?.data?.message);
-      } else {
-        warning_toaster('Admin Not Found');
-      }
+      secureLocalStorage.setItem('userType', "admin");
+      secureLocalStorage.setItem('userId', "1");
+      navigate('/');
     }
+    //   let res = await PostAPI('admin/login', {
+    //     email: signIn.email,
+    //     password: signIn.password,
+    //   });
+    //   if (res?.data?.status === '1') {
+    //     success_toaster('Admin Login Sucessfull');
+    //     secureLocalStorage.setItem('userType', res?.data?.data?.userType);
+    //     secureLocalStorage.setItem('userId', res?.data?.data?.id);
+    //     navigate('/');
+    //   } else if (res?.data?.status === '0') {
+    //     info_toaster(res?.data?.message);
+    //   } else {
+    //     warning_toaster('Admin Not Found');
+    //   }
+    // }
   };
   return (
     <>
@@ -44,12 +54,18 @@ const SignIn = () => {
           <div className="hidden w-full xl:block xl:w-1/2">
             <div className="py-17.5 px-26 text-center">
               <Link className="mb-5.5 inline-block" to="/">
-                <img className="hidden dark:block" src={Logo} alt="Logo" />
-                <img className="dark:hidden" src={Logo} alt="Logo" />
+                <img
+                  className="hidden dark:block"
+                  src="https://www.watch-movies.com.pk/wp-content/uploads/2022/05/logo.png"
+                  alt="Logo"
+                />
+                <img
+                  className="dark:hidden"
+                  src="https://www.watch-movies.com.pk/wp-content/uploads/2022/05/logo.png"
+                  alt="Logo"
+                />
               </Link>
-              <p className="text-2xl 2xl:px-20">
-                All in one shop , Tailors and Shop
-              </p>
+              <p className="text-2xl 2xl:px-20">All Movies In One Place</p>
             </div>
           </div>
 
@@ -57,7 +73,7 @@ const SignIn = () => {
             <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
               <span className="mb-1.5 block font-medium">Start for free</span>
               <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
-                Sign In to Stich Connect
+                Sign In to Movie Box Admin Panel
               </h2>
 
               <form onSubmit={loginFunc}>

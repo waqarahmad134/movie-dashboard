@@ -22,7 +22,7 @@ import {
   ModalOverlay,
 } from '@chakra-ui/react';
 
-export default function Products() {
+export default function Movies() {
   const { data, reFetch } = GetAPI('admin/get_products');
   const allUsers = GetAPI('admin/get_all');
   const productCategories = GetAPI('admin/product_categories');

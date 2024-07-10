@@ -4,13 +4,12 @@ import TableOne from '../../components/Tables/TableOne';
 import GetAPI from '../../utilities/GetAPI';
 
 export default function ECommerce() {
-  const { data } = GetAPI('admin/get_products');
   return (
     <div>
       <DefaultLayout>
         <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
           <div className="col-span-12 xl:col-span-12">
-            <TableOne data={data?.data?.data} />
+            
           </div>
         </div>
       </DefaultLayout>

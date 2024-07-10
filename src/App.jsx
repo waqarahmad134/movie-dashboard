@@ -7,7 +7,6 @@ import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
 import ECommerce from './pages/Dashboard/ECommerce';
 import ProductCategories from './pages/ProductCategories';
-import Products from './pages/Products';
 import Users from './pages/Users';
 import Shops from './pages/Shops';
 import Tailors from './pages/Tailors';
@@ -16,6 +15,7 @@ import ShopCategories from './pages/ShopCategories';
 import TailorCategories from './pages/TailorCategories';
 import SignIn from './pages/Authentication/SignIn';
 import PrivateRoute from './components/PrivateRoute';
+import Movies from './pages/Movies';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -60,13 +60,13 @@ function App() {
             }
           />
           <Route
-            path="/products"
+            path="/movies"
             element={
               <PrivateRoute
                 element={
                   <>
-                    <PageTitle title="All Products | Admin Dashboard" />
-                    <Products />
+                    <PageTitle title="All Movies | Admin Dashboard" />
+                    <Movies />
                   </>
                 }
               />

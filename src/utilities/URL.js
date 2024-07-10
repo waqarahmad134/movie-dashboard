@@ -1,2 +1,2 @@
 export const imgURL = "/images/";
-export const BASE_URL = "http://localhost:8000/";
+export const BASE_URL = "https://movie.theviralmind.com/public/api/";
