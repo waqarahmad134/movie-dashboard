@@ -52,9 +52,14 @@ export default function AddMovie() {
     meta_description: '',
     description: '',
     download_link1: '',
+    download_link2: '',
+    download_link3: '',
     iframe_link1: '',
+    iframe_link2: '',
+    iframe_link3: '',
     year: '',
     duration: '',
+    director: '',
     category_ids: [],
     quality_ids: [],
     actors_ids: [],
@@ -90,8 +95,13 @@ export default function AddMovie() {
       meta_description,
       year,
       duration,
+      director,
       download_link1,
+      download_link2,
+      download_link3,
       iframe_link1,
+      iframe_link2,
+      iframe_link3,
       category_ids,
       quality_ids,
       actors_ids,
@@ -112,10 +122,15 @@ export default function AddMovie() {
       formData.append('description', description);
       formData.append('meta_description', meta_description);
       formData.append('download_link1', download_link1);
+      formData.append('download_link2', download_link2);
+      formData.append('download_link3', download_link3);
       formData.append('iframe_link1', iframe_link1);
+      formData.append('iframe_link2', iframe_link2);
+      formData.append('iframe_link3', iframe_link3);
       formData.append('thumbnail', thumbnail);
       formData.append('year', year);
       formData.append('duration', duration);
+      formData.append('director', director);
       category_ids.forEach((id) => formData.append('category_ids[]', id));
       quality_ids.forEach((id) => formData.append('quality_ids[]', id));
       actors_ids.forEach((id) => formData.append('actors_ids[]', id));
@@ -132,9 +147,14 @@ export default function AddMovie() {
             meta_description: '',
             description: '',
             download_link1: '',
+            download_link2: '',
+            download_link3: '',
             iframe_link1: '',
+            iframe_link2: '',
+            iframe_link3: '',
             year: '',
             duration: '',
+            director: '',
             category_ids: [],
             quality_ids: [],
             actors_ids: [],
@@ -148,7 +168,7 @@ export default function AddMovie() {
       } catch (error) {
         setLoader(false);
         console.error(error);
-        info_toaster('An error occurred while adding the product.');
+        info_toaster('An error occurred while adding the Movie.');
       }
     }
   };
@@ -279,6 +299,20 @@ export default function AddMovie() {
                     name="duration"
                     id="duration"
                     placeholder="duration"
+                    className={inputStyle}
+                  />
+                </div>
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle} htmlFor="director">
+                    Director
+                  </label>
+                  <input
+                    value={addMovie?.director}
+                    onChange={onChange}
+                    type="text"
+                    name="director"
+                    id="director"
+                    placeholder="director"
                     className={inputStyle}
                   />
                 </div>
