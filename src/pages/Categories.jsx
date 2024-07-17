@@ -12,6 +12,7 @@ import {
   error_toaster,
   info_toaster,
   success_toaster,
+  warning_toaster,
 } from '../utilities/Toaster';
 import {
   Modal,
@@ -26,54 +27,55 @@ import axios from 'axios';
 import { BASE_URL } from '../utilities/URL';
 
 export default function Categories() {
-  const { data, reFetch } = GetAPI('admin/product_categories');
+  const { data, reFetch } = GetAPI('categories');
   const [loader, setLoader] = useState(false);
   const [disabled, setDisabled] = useState(false);
-  const [addProdCat, setAddProdCat] = useState({
-    title: '',
+  const [category, setCategory] = useState({
+    name: '',
   });
-  const [updateProdCat, setUpdateProdCat] = useState({
-    title: '',
+  const [updateCategory, setUpdateCategory] = useState({
+    name: '',
     id: '',
   });
   const [addModal, setAddModal] = useState(false);
   const closeAddModal = () => {
     setAddModal(false);
-    setAddProdCat({
-      title: '',
+    setCategory({
+      name: '',
     });
   };
   const [updateModal, setUpdateModal] = useState(false);
   const closeUpdateModal = () => {
     setUpdateModal(false);
-    setUpdateProdCat({
-      title: '',
+    setUpdateCategory({
+      name: '',
       id: '',
     });
   };
   const onChange = (e) => {
-    setAddProdCat({ ...addProdCat, [e.target.name]: e.target.value });
+    setCategory({ ...category, [e.target.name]: e.target.value });
   };
   const onChange2 = (e) => {
-    setUpdateProdCat({ ...updateProdCat, [e.target.name]: e.target.value });
+    setUpdateCategory({ ...updateCategory, [e.target.name]: e.target.value });
   };
-  const addProdCatFunc = async (e) => {
+
+  const categoryFunc = async (e) => {
     e.preventDefault();
-    if (addProdCat.title === '') {
-      info_toaster("Please Enter Category's Title");
+    if (category.name === '') {
+      info_toaster("Please Enter Category's name");
     } else {
       setLoader(true);
-      let res = await PostAPI('admin/addProductCategories', {
-        title: addProdCat.title,
+      let res = await PostAPI('categories', {
+        name: category.name,
       });
       console.log(res?.data)
-      if (res?.data?.status === '1') {
+      if (res?.data?.status === true) {
         reFetch();
         setLoader(false);
         success_toaster(res?.data?.message);
         setAddModal(false);
-        setAddProdCat({
-          title: '',
+        setCategory({
+          name: '',
         });
       } else {
         setLoader(false);
@@ -81,47 +83,49 @@ export default function Categories() {
       }
     }
   };
-  const updateProdCatFunc = async (e) => {
+
+  const updateCategoryFunc = async (e) => {
     e.preventDefault();
-    if (updateProdCat.updateName === '') {
+    if (updateCategory.updateName === '') {
       info_toaster('Please enter your UpdateName');
     } else {
       setLoader(true);
-      let res = await PutAPI(`admin/editProductCategories`, {
-        id: updateProdCat.id,
-        title: updateProdCat.title,
+      let res = await PutAPI(`categories/${updateCategory.id}`, {
+        name: updateCategory.name,
       });
-      if (res?.data?.status === '1') {
+      if (res?.data?.status === true) {
         reFetch();
         setLoader(false);
         success_toaster(res?.data?.message);
         setUpdateModal(false);
-        setUpdateProdCat({
-          title: '',
+        setUpdateCategory({
+          name: '',
           id: '',
         });
       } else {
         setLoader(false);
-        error_toaster(res?.data?.message);
+        warning_toaster(res?.data?.message);
       }
     }
   };
 
-  const deletePC = async (id) => {
+  const deleteCategory = async (id) => {
     setDisabled(true);
-    let res = await DeleteAPI(`admin/deletePC/${id}`);
-    if (res?.data?.status === '1') {
+    let res = await DeleteAPI(`categories/${id}`);
+    console.log(res?.data)
+    if (res?.data?.status === true) {
       reFetch();
       success_toaster(res?.data?.message);
       setDisabled(false);
-    } else {
-      error_toaster(res?.data?.message);
+    } 
+    else {
+      warning_toaster(res?.data?.message);
       setDisabled(false);
     }
   };
 
   function handleStatus(id) {
-    axios.get(BASE_URL + `admin/updatePCStatus/${id}`).then((dat) => {
+    axios.get(BASE_URL + `categories/${id}`).then((dat) => {
       console.log(dat?.data);
       if (dat?.data?.status === '1') {
         reFetch();
@@ -131,11 +135,11 @@ export default function Categories() {
       }
     });
   }
+
   return (
     <div>
       <DefaultLayout>
         <Breadcrumb pageName="All Category" />
-
         <button
           onClick={() => setAddModal(true)}
           className="py-2.5 px-4 rounded bg-black text-white font-medium border mb-6"
@@ -156,15 +160,15 @@ export default function Categories() {
                 <ModalBody>
                   <div className="h-40">
                     <div className="space-y-1">
-                      <label className={labelStyle} htmlFor="title">
+                      <label className={labelStyle} htmlFor="name">
                         Product Category Name
                       </label>
                       <input
-                        value={addProdCat?.title}
+                        value={category?.name}
                         onChange={onChange}
                         type="text"
-                        name="title"
-                        id="title"
+                        name="name"
+                        id="name"
                         placeholder="Product Category Name"
                         className={inputStyle}
                       />
@@ -183,7 +187,7 @@ export default function Categories() {
                   </button>
                   <button
                     type="submit"
-                    onClick={addProdCatFunc}
+                    onClick={categoryFunc}
                     disabled={disabled}
                     className="py-2.5 w-24 rounded font-medium text-sm text-white bg-graydark border"
                   >
@@ -214,13 +218,13 @@ export default function Categories() {
                   <div className="h-40">
                     <div className="space-y-1">
                       <label className={labelStyle} htmlFor="updateName">
-                        Title
+                        name
                       </label>
                       <input
-                        value={updateProdCat?.title}
+                        value={updateCategory?.name}
                         onChange={onChange2}
                         type="text"
-                        name="title"
+                        name="name"
                         id="updateName"
                         placeholder="Product Category Name"
                         className={inputStyle}
@@ -240,7 +244,7 @@ export default function Categories() {
                   </button>
                   <button
                     type="submit"
-                    onClick={updateProdCatFunc}
+                    onClick={updateCategoryFunc}
                     disabled={disabled}
                     className="py-2.5 w-24 rounded font-medium text-sm text-white bg-graydark border"
                   >
@@ -261,7 +265,7 @@ export default function Categories() {
                       No
                     </th>
                     <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
-                      Title
+                      name
                     </th>
                     <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                       Status
@@ -272,7 +276,7 @@ export default function Categories() {
                   </tr>
                 </thead>
                 <tbody>
-                  {data?.data?.data?.map((data, key) => (
+                  {data?.data?.map((data, key) => (
                     <tr key={key}>
                       <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                         <h5 className="font-medium text-black dark:text-white">
@@ -281,7 +285,7 @@ export default function Categories() {
                       </td>
                       <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                         <p className="text-black dark:text-white">
-                          {data?.title}
+                          {data?.name}
                         </p>
                       </td>
                       <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
@@ -299,7 +303,7 @@ export default function Categories() {
                       <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                         <div className="flex items-center space-x-3.5">
                           <button
-                            onClick={() => deletePC(data?.id)}
+                            onClick={() => deleteCategory(data?.id)}
                             className="hover:text-primary cursor-pointer"
                           >
                             <IoTrash size={20} />
@@ -307,8 +311,8 @@ export default function Categories() {
                           <button
                             onClick={() => {
                               setUpdateModal(true);
-                              setUpdateProdCat({
-                                title: data?.title,
+                              setUpdateCategory({
+                                name: data?.name,
                                 id: data?.id,
                               });
                             }}

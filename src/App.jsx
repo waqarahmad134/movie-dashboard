@@ -15,6 +15,7 @@ import Actress from './pages/Actress';
 import SouthActor from './pages/SouthActors';
 import SouthActors from './pages/SouthActors';
 import Qualities from './pages/Qualities';
+import AddMovie from './pages/AddMovie';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -44,20 +45,6 @@ function App() {
               </>
             }
           />
-          {/* <Route
-            index
-            path="/"
-            element={
-              <PrivateRoute
-                element={
-                  <>
-                    <PageTitle title="Home | Admin Dashboard" />
-                    <ECommerce />
-                  </>
-                }
-              />
-            }
-          /> */}
           <Route
             path="/"
             element={
@@ -66,6 +53,19 @@ function App() {
                   <>
                     <PageTitle title="All Movies | Admin Dashboard" />
                     <Movies />
+                  </>
+                }
+              />
+            }
+          />
+          <Route
+            path="/add-movie"
+            element={
+              <PrivateRoute
+                element={
+                  <>
+                    <PageTitle title="Add New Movie | Admin Dashboard" />
+                    <AddMovie />
                   </>
                 }
               />
@@ -136,8 +136,6 @@ function App() {
               />
             }
           />
-        
-
         </Routes>
       </ChakraProvider>
     </>
