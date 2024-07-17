@@ -1,5 +1,5 @@
 import React from 'react';
-import { BASE_URL, imgURL } from '../../utilities/URL';
+import { imgURL } from '../../utilities/URL';
 
 export default function TableThree(props) {
   return (
