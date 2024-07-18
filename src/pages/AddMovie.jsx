@@ -259,6 +259,38 @@ export default function AddMovie() {
               </div>
               <div className="flex gap-4">
                 <div className="space-y-1 w-full">
+                  <label className={labelStyle} htmlFor="download_link2">
+                    Download Link
+                  </label>
+                  <input
+                    value={addMovie?.download_link2}
+                    onChange={onChange}
+                    type="text"
+                    name="download_link2"
+                    id="download_link2"
+                    placeholder="download_link2"
+                    className={inputStyle}
+                  />
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle} htmlFor="download_link3">
+                    Download Link
+                  </label>
+                  <input
+                    value={addMovie?.download_link3}
+                    onChange={onChange}
+                    type="text"
+                    name="download_link3"
+                    id="download_link3"
+                    placeholder="download_link3"
+                    className={inputStyle}
+                  />
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="iframe_link1">
                     Iframe Link
                   </label>
