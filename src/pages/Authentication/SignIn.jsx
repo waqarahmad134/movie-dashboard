@@ -56,12 +56,12 @@ const SignIn = () => {
               <Link className="mb-5.5 inline-block" to="/">
                 <img
                   className="hidden dark:block"
-                  src="https://www.watch-movies.com.pk/wp-content/uploads/2022/05/logo.png"
+                  src="/logo.png"
                   alt="Logo"
                 />
                 <img
                   className="dark:hidden"
-                  src="https://www.watch-movies.com.pk/wp-content/uploads/2022/05/logo.png"
+                  src="/logo.png"
                   alt="Logo"
                 />
               </Link>
