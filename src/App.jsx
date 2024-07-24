@@ -16,6 +16,9 @@ import SouthActor from './pages/SouthActors';
 import SouthActors from './pages/SouthActors';
 import Qualities from './pages/Qualities';
 import AddMovie from './pages/AddMovie';
+import EditMovie from './pages/EditMovie';
+import Tags from './pages/Tags';
+import Seasons from './pages/Seasons';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -72,6 +75,19 @@ function App() {
             }
           />
           <Route
+            path="/edit-movie"
+            element={
+              <PrivateRoute
+                element={
+                  <>
+                    <PageTitle title="Add New Movie | Admin Dashboard" />
+                    <EditMovie />
+                  </>
+                }
+              />
+            }
+          />
+          <Route
             path="/categories"
             element={
               <PrivateRoute
@@ -79,6 +95,32 @@ function App() {
                   <>
                     <PageTitle title="Categories | Admin Dashboard" />
                     <Categories />
+                  </>
+                }
+              />
+            }
+          />
+          <Route
+            path="/tags"
+            element={
+              <PrivateRoute
+                element={
+                  <>
+                    <PageTitle title="Tag | Admin Dashboard" />
+                    <Tags />
+                  </>
+                }
+              />
+            }
+          />
+          <Route
+            path="/seasons"
+            element={
+              <PrivateRoute
+                element={
+                  <>
+                    <PageTitle title="Season | Admin Dashboard" />
+                    <Seasons />
                   </>
                 }
               />

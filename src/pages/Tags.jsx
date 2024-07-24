@@ -26,54 +26,54 @@ import {
 import axios from 'axios';
 import { BASE_URL } from '../utilities/URL';
 
-export default function Qualities() {
-  const { data, reFetch } = GetAPI('quality');
+export default function Tags() {
+  const { data, reFetch } = GetAPI('tag');
   const [loader, setLoader] = useState(false);
   const [disabled, setDisabled] = useState(false);
-  const [quality, setQuality] = useState({
+  const [tag, setTag] = useState({
     name: '',
   });
-  const [updateQuality, setUpdateQuality] = useState({
+  const [updateTag, setUpdateTag] = useState({
     name: '',
     id: '',
   });
   const [addModal, setAddModal] = useState(false);
   const closeAddModal = () => {
     setAddModal(false);
-    setQuality({
+    setTag({
       name: '',
     });
   };
   const [updateModal, setUpdateModal] = useState(false);
   const closeUpdateModal = () => {
     setUpdateModal(false);
-    setUpdateQuality({
+    setUpdateTag({
       name: '',
       id: '',
     });
   };
   const onChange = (e) => {
-    setQuality({ ...quality, [e.target.name]: e.target.value });
+    setTag({ ...tag, [e.target.name]: e.target.value });
   };
   const onChange2 = (e) => {
-    setUpdateQuality({ ...updateQuality, [e.target.name]: e.target.value });
+    setUpdateTag({ ...updateTag, [e.target.name]: e.target.value });
   };
 
-  const qualityFunc = async (e) => {
+  const TagFunc = async (e) => {
     e.preventDefault();
-    if (quality.name === '') {
-      info_toaster("Please Enter quality's name");
+    if (tag.name === '') {
+      info_toaster("Please Enter tag's name");
     } else {
       setLoader(true);
-      let res = await PostAPI('quality', {
-        name: quality.name,
+      let res = await PostAPI('tag', {
+        name: tag.name,
       });
       if (res?.data?.status === true) {
         reFetch();
         setLoader(false);
         success_toaster(res?.data?.message);
         setAddModal(false);
-        setQuality({
+        setTag({
           name: '',
         });
       } else {
@@ -83,21 +83,21 @@ export default function Qualities() {
     }
   };
 
-  const updateQualityFunc = async (e) => {
+  const updateTagFunc = async (e) => {
     e.preventDefault();
-    if (updateQuality.updateName === '') {
+    if (updateTag.updateName === '') {
       info_toaster('Please enter your UpdateName');
     } else {
       setLoader(true);
-      let res = await PutAPI(`quality/${updateQuality.id}`, {
-        name: updateQuality.name,
+      let res = await PutAPI(`tag/${updateTag.id}`, {
+        name: updateTag.name,
       });
       if (res?.data?.status === true) {
         reFetch();
         setLoader(false);
         success_toaster(res?.data?.message);
         setUpdateModal(false);
-        setUpdateQuality({
+        setUpdateTag({
           name: '',
           id: '',
         });
@@ -108,9 +108,9 @@ export default function Qualities() {
     }
   };
 
-  const deletequality = async (id) => {
+  const deletetag = async (id) => {
     setDisabled(true);
-    let res = await DeleteAPI(`quality/${id}`);
+    let res = await DeleteAPI(`tag/${id}`);
     if (res?.data?.status === true) {
       reFetch();
       success_toaster(res?.data?.message);
@@ -123,7 +123,7 @@ export default function Qualities() {
   };
 
   function handleStatus(id) {
-    axios.get(BASE_URL + `quality/${id}`).then((dat) => {
+    axios.get(BASE_URL + `categories/${id}`).then((dat) => {
       if (dat?.data?.status === '1') {
         reFetch();
         info_toaster(dat?.data?.message);
@@ -136,19 +136,19 @@ export default function Qualities() {
   return (
     <div>
       <DefaultLayout>
-        <Breadcrumb pageName="All quality" />
+        <Breadcrumb pageName="All tag" />
         <button
           onClick={() => setAddModal(true)}
           className="py-2.5 px-4 rounded bg-black text-white font-medium border mb-6"
         >
-          Add New quality
+          Add New tag
         </button>
         <Modal onClose={closeAddModal} isOpen={addModal} size="xl" isCentered>
           <ModalOverlay />
           <ModalContent>
             <form>
               <ModalHeader>
-                <h1 className="text-center">Add quality</h1>
+                <h1 className="text-center">Add tag</h1>
               </ModalHeader>
               <ModalCloseButton />
               {loader ? (
@@ -158,15 +158,15 @@ export default function Qualities() {
                   <div className="h-40">
                     <div className="space-y-1">
                       <label className={labelStyle} htmlFor="name">
-                        Product quality Name
+                        Tag Name
                       </label>
                       <input
-                        value={quality?.name}
+                        value={tag?.name}
                         onChange={onChange}
                         type="text"
                         name="name"
                         id="name"
-                        placeholder="Product quality Name"
+                        placeholder="Tag Name"
                         className={inputStyle}
                       />
                     </div>
@@ -184,7 +184,7 @@ export default function Qualities() {
                   </button>
                   <button
                     type="submit"
-                    onClick={qualityFunc}
+                    onClick={TagFunc}
                     disabled={disabled}
                     className="py-2.5 w-24 rounded font-medium text-sm text-white bg-graydark border"
                   >
@@ -205,7 +205,7 @@ export default function Qualities() {
           <ModalContent>
             <form>
               <ModalHeader>
-                <h1 className="text-center">Update Product quality</h1>
+                <h1 className="text-center">Update  tag</h1>
               </ModalHeader>
               <ModalCloseButton />
               {loader ? (
@@ -218,12 +218,12 @@ export default function Qualities() {
                         name
                       </label>
                       <input
-                        value={updateQuality?.name}
+                        value={updateTag?.name}
                         onChange={onChange2}
                         type="text"
                         name="name"
                         id="updateName"
-                        placeholder="Product quality Name"
+                        placeholder="Tag Name"
                         className={inputStyle}
                       />
                     </div>
@@ -241,7 +241,7 @@ export default function Qualities() {
                   </button>
                   <button
                     type="submit"
-                    onClick={updateQualityFunc}
+                    onClick={updateTagFunc}
                     disabled={disabled}
                     className="py-2.5 w-24 rounded font-medium text-sm text-white bg-graydark border"
                   >
@@ -299,7 +299,7 @@ export default function Qualities() {
                       <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                         <div className="flex items-center space-x-3.5">
                           <button
-                            onClick={() => deletequality(data?.id)}
+                            onClick={() => deletetag(data?.id)}
                             className="hover:text-primary cursor-pointer"
                           >
                             <IoTrash size={20} />
@@ -307,7 +307,7 @@ export default function Qualities() {
                           <button
                             onClick={() => {
                               setUpdateModal(true);
-                              setUpdateQuality({
+                              setUpdateTag({
                                 name: data?.name,
                                 id: data?.id,
                               });

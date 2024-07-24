@@ -28,7 +28,6 @@ import { BASE_URL } from '../utilities/URL';
 
 export default function Actors() {
   const { data, reFetch } = GetAPI('actors');
-  console.log("🚀 ~ Actors ~ data:", data)
   const [loader, setLoader] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [actor, setActor] = useState({
@@ -69,7 +68,6 @@ export default function Actors() {
       let res = await PostAPI('actors', {
         name: actor.name,
       });
-      console.log(res?.data);
       if (res?.data?.status === true) {
         reFetch();
         setLoader(false);
@@ -113,7 +111,6 @@ export default function Actors() {
   const deleteActor = async (id) => {
     setDisabled(true);
     let res = await DeleteAPI(`actors/${id}`);
-    console.log(res?.data)
     if (res?.data?.status === true) {
       reFetch();
       success_toaster(res?.data?.message);
@@ -127,7 +124,6 @@ export default function Actors() {
 
   function handleStatus(id) {
     axios.get(BASE_URL + `actors/${id}`).then((dat) => {
-      console.log(dat?.data);
       if (dat?.data?.status === '1') {
         reFetch();
         info_toaster(dat?.data?.message);
@@ -291,7 +287,6 @@ export default function Actors() {
                       </td>
                       <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                         <button
-                          onClick={() => handleStatus(data?.id)}
                           className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
                             data.status === true
                               ? 'bg-success text-success'

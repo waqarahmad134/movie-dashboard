@@ -26,54 +26,54 @@ import {
 import axios from 'axios';
 import { BASE_URL } from '../utilities/URL';
 
-export default function Qualities() {
-  const { data, reFetch } = GetAPI('quality');
+export default function Seasons() {
+  const { data, reFetch } = GetAPI('seasons');
   const [loader, setLoader] = useState(false);
   const [disabled, setDisabled] = useState(false);
-  const [quality, setQuality] = useState({
+  const [season, setSeason] = useState({
     name: '',
   });
-  const [updateQuality, setUpdateQuality] = useState({
+  const [updateSeason, setUpdateSeason] = useState({
     name: '',
     id: '',
   });
   const [addModal, setAddModal] = useState(false);
   const closeAddModal = () => {
     setAddModal(false);
-    setQuality({
+    setSeason({
       name: '',
     });
   };
   const [updateModal, setUpdateModal] = useState(false);
   const closeUpdateModal = () => {
     setUpdateModal(false);
-    setUpdateQuality({
+    setUpdateSeason({
       name: '',
       id: '',
     });
   };
   const onChange = (e) => {
-    setQuality({ ...quality, [e.target.name]: e.target.value });
+    setSeason({ ...season, [e.target.name]: e.target.value });
   };
   const onChange2 = (e) => {
-    setUpdateQuality({ ...updateQuality, [e.target.name]: e.target.value });
+    setUpdateSeason({ ...updateSeason, [e.target.name]: e.target.value });
   };
 
-  const qualityFunc = async (e) => {
+  const seasonFunc = async (e) => {
     e.preventDefault();
-    if (quality.name === '') {
-      info_toaster("Please Enter quality's name");
+    if (season.name === '') {
+      info_toaster("Please Enter season's name");
     } else {
       setLoader(true);
-      let res = await PostAPI('quality', {
-        name: quality.name,
+      let res = await PostAPI('seasons', {
+        name: season.name,
       });
       if (res?.data?.status === true) {
         reFetch();
         setLoader(false);
         success_toaster(res?.data?.message);
         setAddModal(false);
-        setQuality({
+        setSeason({
           name: '',
         });
       } else {
@@ -83,21 +83,21 @@ export default function Qualities() {
     }
   };
 
-  const updateQualityFunc = async (e) => {
+  const updateSeasonFunc = async (e) => {
     e.preventDefault();
-    if (updateQuality.updateName === '') {
+    if (updateSeason.updateName === '') {
       info_toaster('Please enter your UpdateName');
     } else {
       setLoader(true);
-      let res = await PutAPI(`quality/${updateQuality.id}`, {
-        name: updateQuality.name,
+      let res = await PutAPI(`seasons/${updateSeason.id}`, {
+        name: updateSeason.name,
       });
       if (res?.data?.status === true) {
         reFetch();
         setLoader(false);
         success_toaster(res?.data?.message);
         setUpdateModal(false);
-        setUpdateQuality({
+        setUpdateSeason({
           name: '',
           id: '',
         });
@@ -108,9 +108,9 @@ export default function Qualities() {
     }
   };
 
-  const deletequality = async (id) => {
+  const deleteSeason = async (id) => {
     setDisabled(true);
-    let res = await DeleteAPI(`quality/${id}`);
+    let res = await DeleteAPI(`seasons/${id}`);
     if (res?.data?.status === true) {
       reFetch();
       success_toaster(res?.data?.message);
@@ -122,33 +122,33 @@ export default function Qualities() {
     }
   };
 
-  function handleStatus(id) {
-    axios.get(BASE_URL + `quality/${id}`).then((dat) => {
-      if (dat?.data?.status === '1') {
-        reFetch();
-        info_toaster(dat?.data?.message);
-      } else {
-        error_toaster(dat?.data?.message);
-      }
-    });
-  }
+  // function handleStatus(id) {
+  //   axios.get(BASE_URL + `categories/${id}`).then((dat) => {
+  //     if (dat?.data?.status === '1') {
+  //       reFetch();
+  //       info_toaster(dat?.data?.message);
+  //     } else {
+  //       error_toaster(dat?.data?.message);
+  //     }
+  //   });
+  // }
 
   return (
     <div>
       <DefaultLayout>
-        <Breadcrumb pageName="All quality" />
+        <Breadcrumb pageName="All season" />
         <button
           onClick={() => setAddModal(true)}
           className="py-2.5 px-4 rounded bg-black text-white font-medium border mb-6"
         >
-          Add New quality
+          Add New season
         </button>
         <Modal onClose={closeAddModal} isOpen={addModal} size="xl" isCentered>
           <ModalOverlay />
           <ModalContent>
             <form>
               <ModalHeader>
-                <h1 className="text-center">Add quality</h1>
+                <h1 className="text-center">Add season</h1>
               </ModalHeader>
               <ModalCloseButton />
               {loader ? (
@@ -158,15 +158,15 @@ export default function Qualities() {
                   <div className="h-40">
                     <div className="space-y-1">
                       <label className={labelStyle} htmlFor="name">
-                        Product quality Name
+                        season Name
                       </label>
                       <input
-                        value={quality?.name}
+                        value={season?.name}
                         onChange={onChange}
                         type="text"
                         name="name"
                         id="name"
-                        placeholder="Product quality Name"
+                        placeholder="season Name"
                         className={inputStyle}
                       />
                     </div>
@@ -184,7 +184,7 @@ export default function Qualities() {
                   </button>
                   <button
                     type="submit"
-                    onClick={qualityFunc}
+                    onClick={seasonFunc}
                     disabled={disabled}
                     className="py-2.5 w-24 rounded font-medium text-sm text-white bg-graydark border"
                   >
@@ -205,7 +205,7 @@ export default function Qualities() {
           <ModalContent>
             <form>
               <ModalHeader>
-                <h1 className="text-center">Update Product quality</h1>
+                <h1 className="text-center">Update  season</h1>
               </ModalHeader>
               <ModalCloseButton />
               {loader ? (
@@ -218,12 +218,12 @@ export default function Qualities() {
                         name
                       </label>
                       <input
-                        value={updateQuality?.name}
+                        value={updateSeason?.name}
                         onChange={onChange2}
                         type="text"
                         name="name"
                         id="updateName"
-                        placeholder="Product quality Name"
+                        placeholder="season Name"
                         className={inputStyle}
                       />
                     </div>
@@ -241,7 +241,7 @@ export default function Qualities() {
                   </button>
                   <button
                     type="submit"
-                    onClick={updateQualityFunc}
+                    onClick={updateSeasonFunc}
                     disabled={disabled}
                     className="py-2.5 w-24 rounded font-medium text-sm text-white bg-graydark border"
                   >
@@ -287,6 +287,7 @@ export default function Qualities() {
                       </td>
                       <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                         <button
+                          
                           className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
                             data.status === true
                               ? 'bg-success text-success'
@@ -299,7 +300,7 @@ export default function Qualities() {
                       <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                         <div className="flex items-center space-x-3.5">
                           <button
-                            onClick={() => deletequality(data?.id)}
+                            onClick={() => deleteSeason(data?.id)}
                             className="hover:text-primary cursor-pointer"
                           >
                             <IoTrash size={20} />
@@ -307,7 +308,7 @@ export default function Qualities() {
                           <button
                             onClick={() => {
                               setUpdateModal(true);
-                              setUpdateQuality({
+                              setUpdateSeason({
                                 name: data?.name,
                                 id: data?.id,
                               });

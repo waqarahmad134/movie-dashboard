@@ -8,11 +8,7 @@ import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 import { Link } from 'react-router-dom';
 
 export default function Movies() {
-  const { data } = GetAPI('all-movies');
-  console.log("🚀 ~ Movies ~ data:", data?.data)
-
-
-  
+  const { data } = GetAPI('all-movies');  
   return (
     <DefaultLayout>
       <Breadcrumb pageName="All Movies" />

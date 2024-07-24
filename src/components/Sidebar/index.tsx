@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import Logo from '../../images/logo/logo.png';
+import secureLocalStorage from 'react-secure-storage';
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -53,6 +54,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
       document.querySelector('body')?.classList.remove('sidebar-expanded');
     }
   }, [sidebarExpanded]);
+
+  const userType = secureLocalStorage.getItem('userType');
 
   return (
     <aside
@@ -109,61 +112,82 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   }`}
                 >
                   Dashboard
-                </NavLink>               
+                </NavLink>
                 <NavLink
                   to="/add-movie"
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes('add') &&
-                    'bg-graydark dark:bg-meta-4'
+                    pathname.includes('add') && 'bg-graydark dark:bg-meta-4'
                   }`}
                 >
                   Add Movie
                 </NavLink>
-                <NavLink
-                  to="/categories"
-                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes('categories') &&
-                    'bg-graydark dark:bg-meta-4'
-                  }`}
-                >
-                  Categories
-                </NavLink>
-                <NavLink
-                  to="/actors"
-                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes('actors') &&
-                    'bg-graydark dark:bg-meta-4'
-                  }`}
-                >
-                  Actors
-                </NavLink>
-                <NavLink
-                  to="/actress"
-                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes('actress') &&
-                    'bg-graydark dark:bg-meta-4'
-                  }`}
-                >
-                  Actress
-                </NavLink>
-                <NavLink
-                  to="/south-actors"
-                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes('south-actors') &&
-                    'bg-graydark dark:bg-meta-4'
-                  }`}
-                >
-                  South Actors
-                </NavLink>
-                <NavLink
-                  to="/qualities"
-                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes('qualities') &&
-                    'bg-graydark dark:bg-meta-4'
-                  }`}
-                >
-                  Movie Qualtiy
-                </NavLink>
+                {userType === 'admin' && (
+                  <>
+                    <NavLink
+                      to="/categories"
+                      className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                        pathname.includes('categories') &&
+                        'bg-graydark dark:bg-meta-4'
+                      }`}
+                    >
+                      Categories
+                    </NavLink>
+                    <NavLink
+                      to="/seasons"
+                      className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                        pathname.includes('seasons') &&
+                        'bg-graydark dark:bg-meta-4'
+                      }`}
+                    >
+                      Seasons
+                    </NavLink>
+                    <NavLink
+                      to="/actors"
+                      className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                        pathname.includes('actors') &&
+                        'bg-graydark dark:bg-meta-4'
+                      }`}
+                    >
+                      Actors
+                    </NavLink>
+                    <NavLink
+                      to="/actress"
+                      className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                        pathname.includes('actress') &&
+                        'bg-graydark dark:bg-meta-4'
+                      }`}
+                    >
+                      Actress
+                    </NavLink>
+                    <NavLink
+                      to="/south-actors"
+                      className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                        pathname.includes('south-actors') &&
+                        'bg-graydark dark:bg-meta-4'
+                      }`}
+                    >
+                      South Actors
+                    </NavLink>
+                    <NavLink
+                      to="/qualities"
+                      className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                        pathname.includes('qualities') &&
+                        'bg-graydark dark:bg-meta-4'
+                      }`}
+                    >
+                      Movie Qualtiy
+                    </NavLink>
+                    <NavLink
+                      to="/tags"
+                      className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                        pathname.includes('tags') &&
+                        'bg-graydark dark:bg-meta-4'
+                      }`}
+                    >
+                      Tags
+                    </NavLink>
+                  </>
+                )}
               </li>
             </ul>
           </div>

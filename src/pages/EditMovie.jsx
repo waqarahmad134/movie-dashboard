@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import GetAPI from '../utilities/GetAPI';
 import { PostAPI } from '../utilities/PostAPI';
 import { inputStyle, labelStyle } from '../utilities/Input';
@@ -6,18 +6,17 @@ import { info_toaster, success_toaster } from '../utilities/Toaster';
 import Select from 'react-select';
 import DefaultLayout from '../layout/DefaultLayout';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { PutAPI } from '../utilities/PutAPI';
 
-export default function AddMovie() {
-  const { pathname } = useLocation();
-  const navigate = useNavigate();
+export default function EditMovie() {
+  const location = useLocation();
+  const movie = location?.state || {};
   const categories = GetAPI('categories');
   const actors = GetAPI('actors');
   const actress = GetAPI('actress');
   const quality = GetAPI('quality');
   const southActors = GetAPI('southactor');
-  const tag = GetAPI('tag');
-  const seasons = GetAPI('seasons');
 
   const categoryOptions =
     categories?.data?.data?.map((category) => ({
@@ -49,42 +48,32 @@ export default function AddMovie() {
       label: southActor.name,
     })) || [];
 
-  const tagOptions =
-    tag?.data?.data?.map((tag) => ({
-      value: tag.id,
-      label: tag.name,
-    })) || [];
-
-  const seasonOptions =
-    seasons?.data?.data?.map((season) => ({
-      value: season.id,
-      label: season.name,
-    })) || [];
-
   const [loader, setLoader] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [addMovie, setAddMovie] = useState({
-    title: '',
+    title: movie.title,
     thumbnail: null,
     images: [],
-    meta_description: '',
-    description: '',
-    download_link1: '',
-    download_link2: '',
-    download_link3: '',
-    iframe_link1: '',
-    iframe_link2: '',
-    iframe_link3: '',
-    year: '',
-    duration: '',
-    director: '',
-    uploadBy: 'admin',
-    category_ids: [],
-    quality_ids: [],
-    actors_ids: [],
-    actresses_ids: [],
-    south_actor_ids: [],
+    meta_description: movie.meta_description,
+    description: movie.description,
+    download_link1: movie.download_link1,
+    download_link2: movie.download_link2,
+    download_link3: movie.download_link3,
+    iframe_link1: movie.iframe_link1,
+    iframe_link2: movie.iframe_link2,
+    iframe_link3: movie.iframe_link3,
+    year: movie.year,
+    duration: movie.duration,
+    director: movie.director,
+    uploadBy: movie.uploadBy,
+    category_ids: movie.categories,
+    quality_ids: movie.quality,
+    actors_ids: movie.actors,
+    actresses_ids: movie.actresses,
+    south_actor_ids: movie.south_actor,
   });
+
+
 
   const onChange = (e) => {
     if (e?.target?.type === 'file') {
@@ -99,7 +88,7 @@ export default function AddMovie() {
     } else if (e?.target) {
       const value = e?.target?.name?.endsWith('ids')
         ? Array.from(e.target.selectedOptions, (option) =>
-            option.value.toString(),
+            option.value?.toString(),
           )
         : e?.target?.value;
       setAddMovie({ ...addMovie, [e.target?.name]: value });
@@ -107,7 +96,7 @@ export default function AddMovie() {
       const { name, value } = e;
       setAddMovie((prevState) => ({
         ...prevState,
-        [name]: value.map((option) => option.value.toString()),
+        [name]: value.map((option) => option.value?.toString()),
       }));
     }
   };
@@ -163,17 +152,16 @@ export default function AddMovie() {
       images?.forEach((images, index) => {
         formData.append(`images[]`, images);
       });
-      category_ids.forEach((id) => formData.append('category_ids[]', id));
-      quality_ids.forEach((id) => formData.append('quality_ids[]', id));
-      actors_ids.forEach((id) => formData.append('actors_ids[]', id));
-      actresses_ids.forEach((id) => formData.append('actresses_ids[]', id));
-      south_actor_ids.forEach((id) => formData.append('south_actor_ids[]', id));
+      category_ids?.forEach((id) => formData.append('category_ids[]', id));
+      quality_ids?.forEach((id) => formData.append('quality_ids[]', id));
+      actors_ids?.forEach((id) => formData.append('actors_ids[]', id));
+      actresses_ids?.forEach((id) => formData.append('actresses_ids[]', id));
+      south_actor_ids?.forEach((id) => formData.append('south_actor_ids[]', id));
       try {
-        let res = await PostAPI('add-movie', formData);
+        let res = await PutAPI(`movie/${movie?.id}`, formData);
         if (res?.data?.status === true) {
           setLoader(false);
           success_toaster(res?.data?.message);
-          navigate("/");
           setAddMovie({
             title: '',
             thumbnail: null,
@@ -198,7 +186,6 @@ export default function AddMovie() {
         } else {
           setLoader(false);
           info_toaster(res?.data?.message);
-         
         }
       } catch (error) {
         setLoader(false);
@@ -211,7 +198,7 @@ export default function AddMovie() {
   return (
     <>
       <DefaultLayout>
-        <Breadcrumb pageName="Add New Movie" />
+        <Breadcrumb pageName="Edit Movie" />
         <form>
           <div>
             <div className="space-y-5">
@@ -535,42 +522,6 @@ export default function AddMovie() {
                   />
                 </div>
               </div>
-              <div className="flex gap-4">
-                <div className="space-y-1 w-full">
-                  <label className={labelStyle} htmlFor="tagOptions">
-                    Select Tag
-                  </label>
-                  <Select
-                    onChange={(selectedOptions) =>
-                      onChange({
-                        name: 'tagOptions',
-                        value: selectedOptions,
-                      })
-                    }
-                    name="tagOptions"
-                    isMulti
-                    options={tagOptions}
-                  />
-                </div>
-              </div>
-              <div className="flex gap-4">
-                <div className="space-y-1 w-full">
-                  <label className={labelStyle} htmlFor="seasonOptions">
-                    Select Seasons
-                  </label>
-                  <Select
-                    onChange={(selectedOptions) =>
-                      onChange({
-                        name: 'seasonOptions',
-                        value: selectedOptions,
-                      })
-                    }
-                    name="seasonOptions"
-                    isMulti
-                    options={seasonOptions}
-                  />
-                </div>
-              </div>
             </div>
           </div>
           <div className="flex justify-end gap-x-2 mt-5">
@@ -580,7 +531,7 @@ export default function AddMovie() {
               disabled={disabled}
               className="py-2.5 w-24 rounded font-medium text-sm text-white bg-graydark border"
             >
-              Add
+              Edit
             </button>
           </div>
         </form>

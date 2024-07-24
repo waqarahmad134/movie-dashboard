@@ -13,39 +13,59 @@ import secureLocalStorage from 'react-secure-storage';
 const SignIn = () => {
   const navigate = useNavigate();
   const [signIn, setSignIn] = useState({
-    email: 'admin@gmail.com',
-    password: '12345678',
+    email: '',
+    password: '',
   });
+  console.log('🚀 ~ SignIn ~ signIn:', signIn);
   const onChange = (e) => {
     setSignIn({ ...signIn, [e.target.name]: e.target.value });
   };
   const loginFunc = async (e) => {
     e.preventDefault();
-    
     if (signIn.email === '') {
       info_toaster('Please enter Email');
     } else if (signIn.password === '') {
       info_toaster('Please enter Password');
     } else {
-      secureLocalStorage.setItem('userType', "admin");
-      secureLocalStorage.setItem('userId', "1");
-      navigate('/');
+      if (
+        signIn.email === 'admin@gmail.com' &&
+        signIn.password === '12345678'
+      ) {
+        secureLocalStorage.setItem('userType', 'admin');
+        secureLocalStorage.setItem('userId', '1');
+        navigate('/');
+      } else if (
+        signIn.email === 'manager1@gmail.com' &&
+        signIn.password === '12345678'
+      ) {
+        secureLocalStorage.setItem('userType', 'manager1');
+        secureLocalStorage.setItem('userId', '2');
+        navigate('/');
+      } else if (
+        signIn.email === 'manager2@gmail.com' &&
+        signIn.password === '12345678'
+      ) {
+        secureLocalStorage.setItem('userType', 'manager2');
+        secureLocalStorage.setItem('userId', '3');
+        navigate('/');
+      } else if (
+        signIn.email === 'manager3@gmail.com' &&
+        signIn.password === '12345678'
+      ) {
+        secureLocalStorage.setItem('userType', 'manager3');
+        secureLocalStorage.setItem('userId', '4');
+        navigate('/');
+      } else if (
+        signIn.email === 'manager4@gmail.com' &&
+        signIn.password === '12345678'
+      ) {
+        secureLocalStorage.setItem('userType', 'manager4');
+        secureLocalStorage.setItem('userId', '5');
+        navigate('/');
+      } else {
+        alert('Wrong Details');
+      }
     }
-    //   let res = await PostAPI('admin/login', {
-    //     email: signIn.email,
-    //     password: signIn.password,
-    //   });
-    //   if (res?.data?.status === '1') {
-    //     success_toaster('Admin Login Sucessfull');
-    //     secureLocalStorage.setItem('userType', res?.data?.data?.userType);
-    //     secureLocalStorage.setItem('userId', res?.data?.data?.id);
-    //     navigate('/');
-    //   } else if (res?.data?.status === '0') {
-    //     info_toaster(res?.data?.message);
-    //   } else {
-    //     warning_toaster('Admin Not Found');
-    //   }
-    // }
   };
   return (
     <>
@@ -54,16 +74,8 @@ const SignIn = () => {
           <div className="hidden w-full xl:block xl:w-1/2">
             <div className="py-17.5 px-26 text-center">
               <Link className="mb-5.5 inline-block" to="/">
-                <img
-                  className="hidden dark:block"
-                  src="/logo.png"
-                  alt="Logo"
-                />
-                <img
-                  className="dark:hidden"
-                  src="/logo.png"
-                  alt="Logo"
-                />
+                <img className="hidden dark:block" src="/logo.png" alt="Logo" />
+                <img className="dark:hidden" src="/logo.png" alt="Logo" />
               </Link>
               <p className="text-2xl 2xl:px-20">All Movies In One Place</p>
             </div>

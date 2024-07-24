@@ -68,7 +68,6 @@ export default function SouthActors() {
       let res = await PostAPI('southactor', {
         name: southActor.name,
       });
-      console.log(res?.data)
       if (res?.data?.status === true) {
         reFetch();
         setLoader(false);
@@ -112,7 +111,6 @@ export default function SouthActors() {
   const deletesouthActor = async (id) => {
     setDisabled(true);
     let res = await DeleteAPI(`southactor/${id}`);
-    console.log(res?.data)
     if (res?.data?.status === true) {
       reFetch();
       success_toaster(res?.data?.message);
@@ -126,7 +124,6 @@ export default function SouthActors() {
 
   function handleStatus(id) {
     axios.get(BASE_URL + `southactor/${id}`).then((dat) => {
-      console.log(dat?.data);
       if (dat?.data?.status === '1') {
         reFetch();
         info_toaster(dat?.data?.message);
@@ -290,7 +287,6 @@ export default function SouthActors() {
                       </td>
                       <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                         <button
-                          onClick={() => handleStatus(data?.id)}
                           className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
                             data.status === true
                               ? 'bg-success text-success'

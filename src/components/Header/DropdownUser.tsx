@@ -53,8 +53,8 @@ const DropdownUser = () => {
         to="#"
       >
         <span className="hidden text-right lg:block">
-          <span className="block text-sm font-medium text-black dark:text-white">
-            Hi, Admin
+          <span className="capitalize block text-sm font-medium text-black dark:text-white">
+            Hi, {secureLocalStorage.getItem('userType')}
           </span>
           {/* <span className="block text-xs"></span> */}
         </span>
