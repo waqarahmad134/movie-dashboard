@@ -61,14 +61,18 @@ export default function Manager() {
         reFetch();
         success_toaster(res?.data?.message);
         setAddModal(false);
+        setLoader(false);
         setManager({
           first_name: '',
           last_name: '',
           email: '',
           password: '',
+          role : 'manager'
         });
       } else {
-        warning_toaster(res?.data?.message);
+        setLoader(false);
+        warning_toaster(res?.data?.errors?.password?.[0]);
+        warning_toaster(res?.data?.errors?.email?.[0]);
       }
     }
   };
@@ -232,7 +236,7 @@ export default function Manager() {
                         <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                           <div className="flex items-center space-x-3.5">
                             <button
-                              onClick={() => deletemanager(data?.id)}
+                              onClick={() => deleteManager(data?.id)}
                               className="hover:text-primary cursor-pointer"
                             >
                               <IoTrash size={20} />
