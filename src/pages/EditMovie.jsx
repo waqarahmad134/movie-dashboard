@@ -6,11 +6,12 @@ import { info_toaster, success_toaster } from '../utilities/Toaster';
 import Select from 'react-select';
 import DefaultLayout from '../layout/DefaultLayout';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { PutAPI } from '../utilities/PutAPI';
 
 export default function EditMovie() {
   const location = useLocation();
+  const navigate = useNavigate();
   const movie = location?.state || {};
   const categories = GetAPI('categories');
   const actors = GetAPI('actors');
@@ -73,8 +74,6 @@ export default function EditMovie() {
     south_actor_ids: movie.south_actor,
   });
 
-
-
   const onChange = (e) => {
     if (e?.target?.type === 'file') {
       if (e.target.name === 'images') {
@@ -130,59 +129,41 @@ export default function EditMovie() {
       info_toaster('Please Enter Title');
     } else if (description === '') {
       info_toaster('Please Enter description');
-    } else if (thumbnail == null) {
-      info_toaster('Please Enter Image');
     } else {
-      setLoader(true);
-      const formData = new FormData();
-      formData.append('title', title);
-      formData.append('description', description);
-      formData.append('meta_description', meta_description);
-      formData.append('download_link1', download_link1);
-      formData.append('download_link2', download_link2);
-      formData.append('download_link3', download_link3);
-      formData.append('iframe_link1', iframe_link1);
-      formData.append('iframe_link2', iframe_link2);
-      formData.append('iframe_link3', iframe_link3);
-      formData.append('thumbnail', thumbnail);
-      formData.append('year', year);
-      formData.append('duration', duration);
-      formData.append('director', director);
-      formData.append('uploadBy', uploadBy);
-      images?.forEach((images, index) => {
-        formData.append(`images[]`, images);
-      });
-      category_ids?.forEach((id) => formData.append('category_ids[]', id));
-      quality_ids?.forEach((id) => formData.append('quality_ids[]', id));
-      actors_ids?.forEach((id) => formData.append('actors_ids[]', id));
-      actresses_ids?.forEach((id) => formData.append('actresses_ids[]', id));
-      south_actor_ids?.forEach((id) => formData.append('south_actor_ids[]', id));
+      // const formData = new FormData();
+      // formData.append('title', title);
+      // formData.append('description', description);
+      // formData.append('meta_description', meta_description);
+      // formData.append('download_link1', download_link1);
+      // formData.append('download_link2', download_link2);
+      // formData.append('download_link3', download_link3);
+      // formData.append('iframe_link1', iframe_link1);
+      // formData.append('iframe_link2', iframe_link2);
+      // formData.append('iframe_link3', iframe_link3);
+      // formData.append('year', year);
+      // formData.append('duration', duration);
+      // formData.append('director', director);
+      // formData.append('uploadBy', uploadBy);
       try {
-        let res = await PutAPI(`movie/${movie?.id}`, formData);
+        let res = await PutAPI(`movie/${movie?.id}`, {
+          title,
+          description,
+          meta_description,
+          year,
+          duration,
+          director,
+          uploadBy,
+          download_link1,
+          download_link2,
+          download_link3,
+          iframe_link1,
+          iframe_link2,
+          iframe_link3,
+        });
+        console.log(res);
         if (res?.data?.status === true) {
-          setLoader(false);
           success_toaster(res?.data?.message);
-          setAddMovie({
-            title: '',
-            thumbnail: null,
-            meta_description: '',
-            description: '',
-            download_link1: '',
-            download_link2: '',
-            download_link3: '',
-            iframe_link1: '',
-            iframe_link2: '',
-            iframe_link3: '',
-            year: '',
-            duration: '',
-            uploadBy: '',
-            director: '',
-            category_ids: [],
-            quality_ids: [],
-            actors_ids: [],
-            actresses_ids: [],
-            south_actor_ids: [],
-          });
+          navigate('/');
         } else {
           setLoader(false);
           info_toaster(res?.data?.message);
@@ -217,7 +198,7 @@ export default function EditMovie() {
                     className={inputStyle}
                   />
                 </div>
-                <div className="space-y-1 w-full">
+                {/* <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="thumbnail">
                     Thumbnail
                   </label>
@@ -243,7 +224,7 @@ export default function EditMovie() {
                     className={inputStyle}
                     multiple
                   />
-                </div>
+                </div> */}
               </div>
               <div className="flex gap-4">
                 <div className="space-y-1 w-full">
@@ -381,7 +362,7 @@ export default function EditMovie() {
                   <input
                     value={addMovie?.year}
                     onChange={onChange}
-                    type="text"
+                    type="number"
                     name="year"
                     id="year"
                     placeholder="Year"
@@ -432,7 +413,7 @@ export default function EditMovie() {
                   />
                 </div>
               </div>
-              <div className="flex gap-x-4">
+              {/* <div className="flex gap-x-4">
                 <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="category_ids">
                     Select Category
@@ -449,8 +430,8 @@ export default function EditMovie() {
                     options={categoryOptions}
                   />
                 </div>
-              </div>
-              <div className="flex gap-4">
+              </div> */}
+              {/* <div className="flex gap-4">
                 <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="quality_ids">
                     Select Quality
@@ -467,8 +448,8 @@ export default function EditMovie() {
                     options={qualityOptions}
                   />
                 </div>
-              </div>
-              <div className="flex gap-4">
+              </div> */}
+              {/* <div className="flex gap-4">
                 <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="actorOptions">
                     Select Actors
@@ -485,8 +466,8 @@ export default function EditMovie() {
                     options={actorOptions}
                   />
                 </div>
-              </div>
-              <div className="flex gap-4">
+              </div> */}
+              {/* <div className="flex gap-4">
                 <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="actressOptions">
                     Select Actress
@@ -503,8 +484,8 @@ export default function EditMovie() {
                     options={actressOptions}
                   />
                 </div>
-              </div>
-              <div className="flex gap-4">
+              </div> */}
+              {/* <div className="flex gap-4">
                 <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="southActorOptions">
                     Select South Actor
@@ -521,7 +502,7 @@ export default function EditMovie() {
                     options={southActorOptions}
                   />
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="flex justify-end gap-x-2 mt-5">

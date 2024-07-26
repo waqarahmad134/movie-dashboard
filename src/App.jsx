@@ -19,6 +19,9 @@ import AddMovie from './pages/AddMovie';
 import EditMovie from './pages/EditMovie';
 import Tags from './pages/Tags';
 import Seasons from './pages/Seasons';
+import Complain from './pages/Complain';
+import RequestMovie from './pages/RequestMovie';
+import Manager from './pages/Manager';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -82,6 +85,45 @@ function App() {
                   <>
                     <PageTitle title="Add New Movie | Admin Dashboard" />
                     <EditMovie />
+                  </>
+                }
+              />
+            }
+          />
+          <Route
+            path="/complains"
+            element={
+              <PrivateRoute
+                element={
+                  <>
+                    <PageTitle title="Complains | Admin Dashboard" />
+                    <Complain />
+                  </>
+                }
+              />
+            }
+          />
+          <Route
+            path="/manager"
+            element={
+              <PrivateRoute
+                element={
+                  <>
+                    <PageTitle title="Manager | Admin Dashboard" />
+                    <Manager />
+                  </>
+                }
+              />
+            }
+          />
+          <Route
+            path="/movie-requests"
+            element={
+              <PrivateRoute
+                element={
+                  <>
+                    <PageTitle title="Movie Requests | Admin Dashboard" />
+                    <RequestMovie />
                   </>
                 }
               />

@@ -7,6 +7,7 @@ import Select from 'react-select';
 import DefaultLayout from '../layout/DefaultLayout';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 import { useLocation, useNavigate } from 'react-router-dom';
+import secureLocalStorage from 'react-secure-storage';
 
 export default function AddMovie() {
   const { pathname } = useLocation();
@@ -78,7 +79,7 @@ export default function AddMovie() {
     year: '',
     duration: '',
     director: '',
-    uploadBy: 'admin',
+    uploadBy: secureLocalStorage.getItem('name'),
     category_ids: [],
     quality_ids: [],
     actors_ids: [],

@@ -16,54 +16,28 @@ const SignIn = () => {
     email: '',
     password: '',
   });
-  console.log('🚀 ~ SignIn ~ signIn:', signIn);
   const onChange = (e) => {
     setSignIn({ ...signIn, [e.target.name]: e.target.value });
   };
   const loginFunc = async (e) => {
     e.preventDefault();
+    const { email, password } = signIn;
     if (signIn.email === '') {
       info_toaster('Please enter Email');
     } else if (signIn.password === '') {
       info_toaster('Please enter Password');
     } else {
-      if (
-        signIn.email === 'admin@gmail.com' &&
-        signIn.password === '12345678'
-      ) {
-        secureLocalStorage.setItem('userType', 'admin');
-        secureLocalStorage.setItem('userId', '1');
-        navigate('/');
-      } else if (
-        signIn.email === 'manager1@gmail.com' &&
-        signIn.password === '12345678'
-      ) {
-        secureLocalStorage.setItem('userType', 'manager1');
-        secureLocalStorage.setItem('userId', '2');
-        navigate('/');
-      } else if (
-        signIn.email === 'manager2@gmail.com' &&
-        signIn.password === '12345678'
-      ) {
-        secureLocalStorage.setItem('userType', 'manager2');
-        secureLocalStorage.setItem('userId', '3');
-        navigate('/');
-      } else if (
-        signIn.email === 'manager3@gmail.com' &&
-        signIn.password === '12345678'
-      ) {
-        secureLocalStorage.setItem('userType', 'manager3');
-        secureLocalStorage.setItem('userId', '4');
-        navigate('/');
-      } else if (
-        signIn.email === 'manager4@gmail.com' &&
-        signIn.password === '12345678'
-      ) {
-        secureLocalStorage.setItem('userType', 'manager4');
-        secureLocalStorage.setItem('userId', '5');
+      let res = await PostAPI(`login`, {
+        email,
+        password,
+      });
+      if (res?.data?.status === true) {
+        success_toaster(res?.data?.message);
+        secureLocalStorage.setItem('userType', res?.data?.data?.user?.role);
+        secureLocalStorage.setItem('name', res?.data?.data?.user?.first_name);
         navigate('/');
       } else {
-        alert('Wrong Details');
+        info_toaster(res?.data?.message);
       }
     }
   };

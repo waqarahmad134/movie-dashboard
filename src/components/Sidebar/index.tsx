@@ -124,6 +124,33 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 {userType === 'admin' && (
                   <>
                     <NavLink
+                      to="/manager"
+                      className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                        pathname.includes('manager') &&
+                        'bg-graydark dark:bg-meta-4'
+                      }`}
+                    >
+                      Manager's
+                    </NavLink>
+                    <NavLink
+                      to="/movie-requests"
+                      className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                        pathname.includes('movie-requests') &&
+                        'bg-graydark dark:bg-meta-4'
+                      }`}
+                    >
+                      Requested Movies
+                    </NavLink>
+                    <NavLink
+                      to="/complains"
+                      className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                        pathname.includes('complains') &&
+                        'bg-graydark dark:bg-meta-4'
+                      }`}
+                    >
+                      Complains
+                    </NavLink>
+                    <NavLink
                       to="/categories"
                       className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
                         pathname.includes('categories') &&
