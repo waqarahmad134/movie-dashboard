@@ -22,6 +22,7 @@ import Seasons from './pages/Seasons';
 import Complain from './pages/Complain';
 import RequestMovie from './pages/RequestMovie';
 import Manager from './pages/Manager';
+import Profile from './pages/Profile';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -215,6 +216,19 @@ function App() {
                   <>
                     <PageTitle title="Categories | Admin Dashboard" />
                     <Qualities />
+                  </>
+                }
+              />
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <PrivateRoute
+                element={
+                  <>
+                    <PageTitle title="Profile | Admin Dashboard" />
+                    <Profile />
                   </>
                 }
               />
