@@ -87,6 +87,8 @@ export default function AddMovie() {
     south_actor_ids: [],
   });
 
+  console.log(addMovie)
+
   const onChange = (e) => {
     if (e?.target?.type === 'file') {
       if (e.target.name === 'images') {

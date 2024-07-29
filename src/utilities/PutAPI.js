@@ -6,6 +6,7 @@ export const PutAPI = async (url, putData) => {
   let config = {
     headers: {
       accessToken: secureLocalStorage.getItem("accessToken"),
+      'Content-Type': 'multipart/form-data'
     },
   };
   try {

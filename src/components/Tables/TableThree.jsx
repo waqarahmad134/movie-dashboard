@@ -1,7 +1,6 @@
 import React from 'react';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import { success_toaster, warning_toaster } from '../../utilities/Toaster';
 
 export default function TableThree({ data, deleteMovie }) {
   const navigate = useNavigate();
@@ -17,6 +16,9 @@ export default function TableThree({ data, deleteMovie }) {
         <table className="w-full table-auto">
           <thead>
             <tr className="bg-gray-2 text-left dark:bg-meta-4">
+              <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                Image
+              </th>
               <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
                 Title
               </th>
@@ -39,22 +41,27 @@ export default function TableThree({ data, deleteMovie }) {
               <tr key={key}>
                 <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                   <h5 className="font-medium text-black dark:text-white">
-                    {data.title}
+                    <img className='w-15 rounded-md' src={`http://backend.videosroom.com/public/thumbnail/${data?.thumbnail}`} alt={data?.title} />
+                  </h5>
+                </td>
+                <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
+                  <h5 className="font-medium text-black dark:text-white">
+                    {data?.title}
                   </h5>
                 </td>
                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                   <h5 className="font-medium text-black dark:text-white">
-                    {data.duration}
+                    {data?.duration}
                   </h5>
                 </td>
                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                   <h5 className="font-medium text-black dark:text-white">
-                    {data.views}
+                    {data?.views}
                   </h5>
                 </td>
                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                   <p className="text-black dark:text-white">
-                    {data.status ? 'Active' : 'Blocked'}
+                    {data?.status ? 'Active' : 'Blocked'}
                   </p>
                 </td>
                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
@@ -66,7 +73,7 @@ export default function TableThree({ data, deleteMovie }) {
                       <FaEdit size={22} />
                     </button>
                     <button
-                      onClick={() => deleteMovie(data.id)}
+                      onClick={() => deleteMovie(data?.id)}
                       className="flex items-center gap-3"
                     >
                       <FaTrash size={18} />
