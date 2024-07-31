@@ -19,6 +19,7 @@ export default function EditMovie() {
   const [editMovie, setUpdateMovie] = useState({
     title: movie.title,
     thumbnail: null,
+    images: [],
     meta_description: movie.meta_description,
     description: movie.description,
     download_link1: movie.download_link1,
@@ -32,13 +33,29 @@ export default function EditMovie() {
     director: movie.director,
     uploadBy: movie.uploadBy,
   });
+  console.log(editMovie)
 
   const onChange = (e) => {
     const { name, value, type, files } = e.target;
-    setUpdateMovie((prevState) => ({
-      ...prevState,
-      [name]: type === 'file' ? files[0] : value,
-    }));
+  
+    if (type === 'file') {
+      if (name === 'images') {
+        setUpdateMovie((prevState) => ({
+          ...prevState,
+          images: [...prevState.images, ...Array.from(files)],
+        }));
+      } else {
+        setUpdateMovie((prevState) => ({
+          ...prevState,
+          [name]: files[0],
+        }));
+      }
+    } else {
+      setUpdateMovie((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
   };
 
   const editMovieFunc = async (e) => {
@@ -48,6 +65,7 @@ export default function EditMovie() {
       title,
       description,
       thumbnail,
+      images,
       meta_description,
       year,
       duration,
@@ -74,20 +92,25 @@ export default function EditMovie() {
 
     const formData = new FormData();
     formData.append('title', title);
-    formData.append('description', description);
-    formData.append('meta_description', meta_description);
-    formData.append('download_link1', download_link1);
-    formData.append('download_link2', download_link2);
-    formData.append('download_link3', download_link3);
-    formData.append('iframe_link1', iframe_link1);
-    formData.append('iframe_link2', iframe_link2);
-    formData.append('iframe_link3', iframe_link3);
-    formData.append('year', year);
-    formData.append('duration', duration);
-    formData.append('director', director);
-    formData.append('uploadBy', uploadBy);
+    formData.append('description', description || '');
+    formData.append('meta_description', meta_description || '');
+    formData.append('download_link1', download_link1 || '');
+    formData.append('download_link2', download_link2 || '');
+    formData.append('download_link3', download_link3 || '');
+    formData.append('iframe_link1', iframe_link1 || '');
+    formData.append('iframe_link2', iframe_link2 || '');
+    formData.append('iframe_link3', iframe_link3 || '');
+    formData.append('year', year || '');
+    formData.append('duration', duration || '');
+    formData.append('director', director || '');
+    formData.append('uploadBy', uploadBy || '');
     if (thumbnail) {
       formData.append('thumbnail', thumbnail);
+    }
+    if (images.length > 0) {
+      images?.forEach((images, index) => {
+        formData.append(`images[]`, images);
+      });
     }
     try {
       let res = await PostAPI(`update-movie/${movie?.id}`, formData);
@@ -98,7 +121,7 @@ export default function EditMovie() {
         success_toaster(res?.data?.message);
       }
     } catch (error) {
-      console.error(error);
+      console.log("🚀 ~ editMovieFunc ~ error:", error)
       info_toaster('An error occurred while editing the Movie.');
     } finally {
       setLoader(false);
@@ -139,7 +162,7 @@ export default function EditMovie() {
                     className={`${inputStyle} + h-[44px]`}
                   />
                 </div>
-                {/* <div className="space-y-1 w-full">
+                <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="images">
                     Screen Shots
                   </label>
@@ -152,7 +175,7 @@ export default function EditMovie() {
                     className={inputStyle}
                     multiple
                   />
-                </div> */}
+                </div>
               </div>
               <div className="flex gap-4">
                 <div className="space-y-1 w-full">
