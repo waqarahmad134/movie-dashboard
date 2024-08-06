@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 
 export default function TableThree({ data, deleteMovie }) {
   const navigate = useNavigate();
-
   const handleEdit = (e, data) => {
     e.preventDefault();
     navigate('/edit-movie', { state: data });

@@ -73,9 +73,13 @@ export default function AddMovie() {
     download_link1: '',
     download_link2: '',
     download_link3: '',
+    download_link4: '',
+    download_link5: '',
     iframe_link1: '',
     iframe_link2: '',
     iframe_link3: '',
+    iframe_link4: '',
+    iframe_link5: '',
     year: '',
     duration: '',
     director: '',
@@ -85,9 +89,9 @@ export default function AddMovie() {
     actors_ids: [],
     actresses_ids: [],
     south_actor_ids: [],
+    tags_ids: [],
+    seasons_ids: [],
   });
-
-  console.log(addMovie)
 
   const onChange = (e) => {
     if (e?.target?.type === 'file') {
@@ -130,14 +134,20 @@ export default function AddMovie() {
       download_link1,
       download_link2,
       download_link3,
+      download_link4,
+      download_link5,
       iframe_link1,
       iframe_link2,
       iframe_link3,
+      iframe_link4,
+      iframe_link5,
       category_ids,
       quality_ids,
       actors_ids,
       actresses_ids,
       south_actor_ids,
+      tags_ids,
+      seasons_ids,
     } = addMovie;
 
     if (title === '') {
@@ -155,9 +165,13 @@ export default function AddMovie() {
       formData.append('download_link1', download_link1);
       formData.append('download_link2', download_link2);
       formData.append('download_link3', download_link3);
+      formData.append('download_link4', download_link4);
+      formData.append('download_link5', download_link5);
       formData.append('iframe_link1', iframe_link1);
       formData.append('iframe_link2', iframe_link2);
       formData.append('iframe_link3', iframe_link3);
+      formData.append('iframe_link4', iframe_link4);
+      formData.append('iframe_link5', iframe_link5);
       formData.append('thumbnail', thumbnail);
       formData.append('year', year);
       formData.append('duration', duration);
@@ -171,6 +185,8 @@ export default function AddMovie() {
       actors_ids.forEach((id) => formData.append('actors_ids[]', id));
       actresses_ids.forEach((id) => formData.append('actresses_ids[]', id));
       south_actor_ids.forEach((id) => formData.append('south_actor_ids[]', id));
+      tags_ids.forEach((id) => formData.append('tags_ids[]', id));
+      seasons_ids.forEach((id) => formData.append('seasons_ids[]', id));
       try {
         let res = await PostAPI('add-movie', formData);
         if (res?.data?.status === true) {
@@ -185,9 +201,13 @@ export default function AddMovie() {
             download_link1: '',
             download_link2: '',
             download_link3: '',
+            download_link4: '',
+            download_link5: '',
             iframe_link1: '',
             iframe_link2: '',
             iframe_link3: '',
+            iframe_link4: '',
+            iframe_link5: '',
             year: '',
             duration: '',
             uploadBy: '',
@@ -197,6 +217,8 @@ export default function AddMovie() {
             actors_ids: [],
             actresses_ids: [],
             south_actor_ids: [],
+            tags_ids: [],
+            seasons_ids: [],
           });
         } else {
           setLoader(false);
@@ -343,6 +365,38 @@ export default function AddMovie() {
               </div>
               <div className="flex gap-4">
                 <div className="space-y-1 w-full">
+                  <label className={labelStyle} htmlFor="download_link4">
+                    Download Link 4
+                  </label>
+                  <input
+                    value={addMovie?.download_link4}
+                    onChange={onChange}
+                    type="text"
+                    name="download_link4"
+                    id="download_link4"
+                    placeholder="download_link4"
+                    className={inputStyle}
+                  />
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle} htmlFor="download_link5">
+                    Download Link 5
+                  </label>
+                  <input
+                    value={addMovie?.download_link5}
+                    onChange={onChange}
+                    type="text"
+                    name="download_link5"
+                    id="download_link5"
+                    placeholder="download_link5"
+                    className={inputStyle}
+                  />
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="iframe_link1">
                     Iframe Link
                   </label>
@@ -385,6 +439,38 @@ export default function AddMovie() {
                     name="iframe_link3"
                     id="iframe_link3"
                     placeholder="iframe_link3"
+                    className={inputStyle}
+                  />
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle} htmlFor="iframe_link4">
+                    Iframe Link 4
+                  </label>
+                  <input
+                    value={addMovie?.iframe_link4}
+                    onChange={onChange}
+                    type="text"
+                    name="iframe_link4"
+                    id="iframe_link4"
+                    placeholder="iframe_link4"
+                    className={inputStyle}
+                  />
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle} htmlFor="iframe_link5">
+                    Iframe Link 5
+                  </label>
+                  <input
+                    value={addMovie?.iframe_link5}
+                    onChange={onChange}
+                    type="text"
+                    name="iframe_link5"
+                    id="iframe_link5"
+                    placeholder="iframe_link5"
                     className={inputStyle}
                   />
                 </div>
@@ -486,17 +572,17 @@ export default function AddMovie() {
               </div>
               <div className="flex gap-4">
                 <div className="space-y-1 w-full">
-                  <label className={labelStyle} htmlFor="actorOptions">
+                  <label className={labelStyle} htmlFor="actors_ids">
                     Select Actors
                   </label>
                   <Select
                     onChange={(selectedOptions) =>
                       onChange({
-                        name: 'actorOptions',
+                        name: 'actors_ids',
                         value: selectedOptions,
                       })
                     }
-                    name="actorOptions"
+                    name="actors_ids"
                     isMulti
                     options={actorOptions}
                   />
@@ -504,17 +590,17 @@ export default function AddMovie() {
               </div>
               <div className="flex gap-4">
                 <div className="space-y-1 w-full">
-                  <label className={labelStyle} htmlFor="actressOptions">
+                  <label className={labelStyle} htmlFor="actresses_ids">
                     Select Actress
                   </label>
                   <Select
                     onChange={(selectedOptions) =>
                       onChange({
-                        name: 'actressOptions',
+                        name: 'actresses_ids',
                         value: selectedOptions,
                       })
                     }
-                    name="actressOptions"
+                    name="actresses_ids"
                     isMulti
                     options={actressOptions}
                   />
@@ -522,17 +608,17 @@ export default function AddMovie() {
               </div>
               <div className="flex gap-4">
                 <div className="space-y-1 w-full">
-                  <label className={labelStyle} htmlFor="southActorOptions">
+                  <label className={labelStyle} htmlFor="south_actor_ids">
                     Select South Actor
                   </label>
                   <Select
                     onChange={(selectedOptions) =>
                       onChange({
-                        name: 'southActorOptions',
+                        name: 'south_actor_ids',
                         value: selectedOptions,
                       })
                     }
-                    name="southActorOptions"
+                    name="south_actor_ids"
                     isMulti
                     options={southActorOptions}
                   />
@@ -540,17 +626,17 @@ export default function AddMovie() {
               </div>
               <div className="flex gap-4">
                 <div className="space-y-1 w-full">
-                  <label className={labelStyle} htmlFor="tagOptions">
+                  <label className={labelStyle} htmlFor="tags_ids">
                     Select Tag
                   </label>
                   <Select
                     onChange={(selectedOptions) =>
                       onChange({
-                        name: 'tagOptions',
+                        name: 'tags_ids',
                         value: selectedOptions,
                       })
                     }
-                    name="tagOptions"
+                    name="tags_ids"
                     isMulti
                     options={tagOptions}
                   />
@@ -558,17 +644,17 @@ export default function AddMovie() {
               </div>
               <div className="flex gap-4">
                 <div className="space-y-1 w-full">
-                  <label className={labelStyle} htmlFor="seasonOptions">
+                  <label className={labelStyle} htmlFor="seasons_ids">
                     Select Seasons
                   </label>
                   <Select
                     onChange={(selectedOptions) =>
                       onChange({
-                        name: 'seasonOptions',
+                        name: 'seasons_ids',
                         value: selectedOptions,
                       })
                     }
-                    name="seasonOptions"
+                    name="seasons_ids"
                     isMulti
                     options={seasonOptions}
                   />

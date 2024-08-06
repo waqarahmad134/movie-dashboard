@@ -4,7 +4,6 @@ import DefaultLayout from '../layout/DefaultLayout';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 import GetAPI from '../utilities/GetAPI';
 import { PostAPI } from '../utilities/PostAPI';
-import { PutAPI } from '../utilities/PutAPI';
 import { inputStyle, labelStyle } from '../utilities/Input';
 import { info_toaster, success_toaster } from '../utilities/Toaster';
 import Select from 'react-select';
@@ -13,6 +12,44 @@ export default function EditMovie() {
   const location = useLocation();
   const navigate = useNavigate();
   const movie = location?.state || {};
+  console.log("🚀 ~ EditMovie ~ movie:", movie)
+  
+  const PreviousCategories = movie?.categories?.map((data) => ({
+    value: data.id,
+    label: data.name,
+  })) || [];
+
+  const PreviousQualtity = movie?.qualities?.map((data) => ({
+    value: data.id,
+    label: data.name,
+  })) || [];
+
+  const PreviousActors = movie?.actors?.map((data) => ({
+    value: data.id,
+    label: data.name,
+  })) || [];
+
+  const PreviousActresses = movie?.actresses?.map((data) => ({
+    value: data.id,
+    label: data.name,
+  })) || [];
+
+  const PreviousSeasons = movie?.seasons?.map((data) => ({
+    value: data.id,
+    label: data.name,
+  })) || [];
+
+  const PreviouSouthActor = movie?.south_actor?.map((data) => ({
+    value: data.id,
+    label: data.name,
+  })) || [];
+
+  const PreviouTags = movie?.tags?.map((data) => ({
+    value: data.id,
+    label: data.name,
+  })) || [];
+
+
 
   const [loader, setLoader] = useState(false);
   const [disabled, setDisabled] = useState(false);
@@ -25,19 +62,131 @@ export default function EditMovie() {
     download_link1: movie.download_link1,
     download_link2: movie.download_link2,
     download_link3: movie.download_link3,
+    download_link4: movie.download_link4,
+    download_link5: movie.download_link5,
     iframe_link1: movie.iframe_link1,
     iframe_link2: movie.iframe_link2,
     iframe_link3: movie.iframe_link3,
+    iframe_link4: movie.iframe_link4,
+    iframe_link5: movie.iframe_link5,
     year: movie.year,
     duration: movie.duration,
     director: movie.director,
     uploadBy: movie.uploadBy,
+    category_ids: [],
+    quality_ids: [],
+    actors_ids: [],
+    actresses_ids: [],
+    south_actor_ids: [],
+    tags_ids: [],
+    seasons_ids: [],
   });
-  console.log(editMovie)
+
+  const categories = GetAPI('categories');
+  const actors = GetAPI('actors');
+  const actress = GetAPI('actress');
+  const quality = GetAPI('quality');
+  const southActors = GetAPI('southactor');
+  const tag = GetAPI('tag');
+  const seasons = GetAPI('seasons');
+
+  const categoryOptions =
+  categories?.data?.data?.map((category) => ({
+    value: category.id,
+    label: category.name,
+  })) || [];
+
+  
+  const actorOptions =
+    actors?.data?.data?.map((actor) => ({
+      value: actor.id,
+      label: actor.name,
+    })) || [];
+
+  const actressOptions =
+    actress?.data?.data?.map((actress) => ({
+      value: actress.id,
+      label: actress.name,
+    })) || [];
+
+  const qualityOptions =
+    quality?.data?.data?.map((quality) => ({
+      value: quality.id,
+      label: quality.name,
+    })) || [];
+
+  const southActorOptions =
+    southActors?.data?.data?.map((southActor) => ({
+      value: southActor.id,
+      label: southActor.name,
+    })) || [];
+
+  const tagOptions =
+    tag?.data?.data?.map((tag) => ({
+      value: tag.id,
+      label: tag.name,
+    })) || [];
+
+  const seasonOptions =
+    seasons?.data?.data?.map((season) => ({
+      value: season.id,
+      label: season.name,
+    })) || [];
+
+  const handleCategoriesChange = (selectedCategories) => {
+    setUpdateMovie((prevMovie) => ({
+      ...prevMovie,
+      category_ids: selectedCategories ? selectedCategories.map(cat => String(cat.value)) : [],
+    }));
+  };
+
+  const handleQuality = (selectedQuality) => {
+    setUpdateMovie((prevMovie) => ({
+      ...prevMovie,
+      quality_ids: selectedQuality ? selectedQuality.map(cat => String(cat.value)) : [],
+    }));
+  };
+  
+  const handleActors = (selectedActors) => {
+    setUpdateMovie((prevMovie) => ({
+      ...prevMovie,
+      actors_ids: selectedActors ? selectedActors.map(cat => String(cat.value)) : [],
+    }));
+  };
+
+  const handleActress = (selectedActress) => {
+    setUpdateMovie((prevMovie) => ({
+      ...prevMovie,
+      actresses_ids: selectedActress ? selectedActress.map(cat => String(cat.value)) : [],
+    }));
+  };
+
+  const handleSouthActors = (selectedSouthActors) => {
+    setUpdateMovie((prevMovie) => ({
+      ...prevMovie,
+      south_actor_ids: selectedSouthActors ? selectedSouthActors.map(cat => String(cat.value)) : [],
+    }));
+  };
+
+  const handleTags = (selectedTags) => {
+    setUpdateMovie((prevMovie) => ({
+      ...prevMovie,
+      tags_ids: selectedTags ? selectedTags.map(cat => String(cat.value)) : [],
+    }));
+  };
+
+  const handleSeasons = (selectedSeasons) => {
+    setUpdateMovie((prevMovie) => ({
+      ...prevMovie,
+      seasons_ids: selectedSeasons ? selectedSeasons.map(cat => String(cat.value)) : [],
+    }));
+  };
+  
+  
+  
 
   const onChange = (e) => {
     const { name, value, type, files } = e.target;
-  
     if (type === 'file') {
       if (name === 'images') {
         setUpdateMovie((prevState) => ({
@@ -74,9 +223,20 @@ export default function EditMovie() {
       download_link1,
       download_link2,
       download_link3,
+      download_link4,
+      download_link5,
       iframe_link1,
       iframe_link2,
       iframe_link3,
+      iframe_link4,
+      iframe_link5,
+      category_ids,
+      quality_ids,
+      actors_ids,
+      actresses_ids,
+      south_actor_ids,
+      tags_ids,
+      seasons_ids,
     } = editMovie;
 
     if (title === '') {
@@ -97,9 +257,13 @@ export default function EditMovie() {
     formData.append('download_link1', download_link1 || '');
     formData.append('download_link2', download_link2 || '');
     formData.append('download_link3', download_link3 || '');
+    formData.append('download_link4', download_link4 || '');
+    formData.append('download_link5', download_link5 || '');
     formData.append('iframe_link1', iframe_link1 || '');
     formData.append('iframe_link2', iframe_link2 || '');
     formData.append('iframe_link3', iframe_link3 || '');
+    formData.append('iframe_link4', iframe_link4 || '');
+    formData.append('iframe_link5', iframe_link5 || '');
     formData.append('year', year || '');
     formData.append('duration', duration || '');
     formData.append('director', director || '');
@@ -112,6 +276,27 @@ export default function EditMovie() {
         formData.append(`images[]`, images);
       });
     }
+    category_ids.forEach((category_id) => {
+      formData.append('category_ids[]', category_id);
+    });
+    quality_ids.forEach((quality_id) => {
+      formData.append('quality_ids[]', quality_id);
+    });
+    actors_ids.forEach((actors_id) => {
+      formData.append('actors_ids[]', actors_id);
+    });
+    actresses_ids.forEach((actresses_id) => {
+      formData.append('actresses_ids[]', actresses_id);
+    });
+    south_actor_ids.forEach((south_actor_id) => {
+      formData.append('south_actor_ids[]', south_actor_id);
+    });
+    tags_ids.forEach((tags_id) => {
+      formData.append('tags_ids[]', tags_id);
+    });
+    seasons_ids.forEach((season_id) => {
+      formData.append('seasons_ids[]', season_id);
+    });
     try {
       let res = await PostAPI(`update-movie/${movie?.id}`, formData);
       if (res?.data?.status === true) {
@@ -121,7 +306,7 @@ export default function EditMovie() {
         success_toaster(res?.data?.message);
       }
     } catch (error) {
-      console.log("🚀 ~ editMovieFunc ~ error:", error)
+      console.log('🚀 ~ editMovieFunc ~ error:', error);
       info_toaster('An error occurred while editing the Movie.');
     } finally {
       setLoader(false);
@@ -259,6 +444,38 @@ export default function EditMovie() {
               </div>
               <div className="flex gap-4">
                 <div className="space-y-1 w-full">
+                  <label className={labelStyle} htmlFor="download_link4">
+                    Download Link 4
+                  </label>
+                  <input
+                    value={editMovie?.download_link4}
+                    onChange={onChange}
+                    type="text"
+                    name="download_link4"
+                    id="download_link4"
+                    placeholder="download_link4"
+                    className={inputStyle}
+                  />
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle} htmlFor="download_link5">
+                    Download Link 5
+                  </label>
+                  <input
+                    value={editMovie?.download_link5}
+                    onChange={onChange}
+                    type="text"
+                    name="download_link5"
+                    id="download_link5"
+                    placeholder="download_link5"
+                    className={inputStyle}
+                  />
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="iframe_link1">
                     Iframe Link
                   </label>
@@ -301,6 +518,38 @@ export default function EditMovie() {
                     name="iframe_link3"
                     id="iframe_link3"
                     placeholder="iframe_link3"
+                    className={inputStyle}
+                  />
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle} htmlFor="iframe_link4">
+                    Iframe Link 4
+                  </label>
+                  <input
+                    value={editMovie?.iframe_link4}
+                    onChange={onChange}
+                    type="text"
+                    name="iframe_link4"
+                    id="iframe_link4"
+                    placeholder="iframe_link4"
+                    className={inputStyle}
+                  />
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle} htmlFor="iframe_link5">
+                    Iframe Link 5
+                  </label>
+                  <input
+                    value={editMovie?.iframe_link5}
+                    onChange={onChange}
+                    type="text"
+                    name="iframe_link5"
+                    id="iframe_link5"
+                    placeholder="iframe_link5"
                     className={inputStyle}
                   />
                 </div>
@@ -361,6 +610,104 @@ export default function EditMovie() {
                     placeholder="uploadBy"
                     className={inputStyle}
                     readOnly
+                  />
+                </div>
+              </div>
+              <div className="flex gap-x-4">
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle}>
+                    Categories
+                  </label>
+                  <Select
+                    onChange={handleCategoriesChange}
+                    defaultValue={PreviousCategories}
+                    name="category_ids"
+                    isMulti
+                    options={categoryOptions}
+                  />
+                </div>
+              </div>
+              <div className="flex gap-x-4">
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle}>
+                    Quality
+                  </label>
+                  <Select
+                    onChange={handleQuality}
+                    defaultValue={PreviousQualtity}
+                    name="quality_ids"
+                    isMulti
+                    options={qualityOptions}
+                  />
+                </div>
+              </div>
+              <div className="flex gap-x-4">
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle}>
+                    Actors
+                  </label>
+                  <Select
+                    onChange={handleActors}
+                    defaultValue={PreviousActors}
+                    name="actors_ids"
+                    isMulti
+                    options={actorOptions}
+                  />
+                </div>
+              </div>
+              <div className="flex gap-x-4">
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle}>
+                    Actress
+                  </label>
+                  <Select
+                    onChange={handleActress}
+                    defaultValue={PreviousActresses}
+                    name="actresses_ids"
+                    isMulti
+                    options={actressOptions}
+                  />
+                </div>
+              </div>
+              <div className="flex gap-x-4">
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle}>
+                    South Actors
+                  </label>
+                  <Select
+                    onChange={handleSouthActors}
+                    defaultValue={PreviouSouthActor}
+                    name="south_actor_ids"
+                    isMulti
+                    options={southActorOptions}
+                  />
+                </div>
+              </div>
+              <div className="flex gap-x-4">
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle}>
+                    Tags
+                  </label>
+                  <Select
+                    onChange={handleTags}
+                    defaultValue={PreviouTags}
+                    name="tags_ids"
+                    isMulti
+                    options={tagOptions}
+                  />
+                </div>
+              </div>
+              <div className="flex gap-x-4">
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle}>
+                    Seasons
+                  </label>
+                  <Select
+                    onChange={handleSeasons}
+                    defaultValue={PreviousSeasons}
+                    name="seasons_ids"
+                    isMulti
+                    options={seasonOptions}
                   />
                 </div>
               </div>
