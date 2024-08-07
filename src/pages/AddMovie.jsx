@@ -75,11 +75,21 @@ export default function AddMovie() {
     download_link3: '',
     download_link4: '',
     download_link5: '',
+    download_link6: '',
+    download_link7: '',
+    download_link8: '',
+    download_link9: '',
+    download_link10: '',
     iframe_link1: '',
     iframe_link2: '',
     iframe_link3: '',
     iframe_link4: '',
     iframe_link5: '',
+    iframe_link6: '',
+    iframe_link7: '',
+    iframe_link8: '',
+    iframe_link9: '',
+    iframe_link10: '',
     year: '',
     duration: '',
     director: '',
@@ -136,11 +146,21 @@ export default function AddMovie() {
       download_link3,
       download_link4,
       download_link5,
+      download_link6,
+      download_link7,
+      download_link8,
+      download_link9,
+      download_link10,
       iframe_link1,
       iframe_link2,
       iframe_link3,
       iframe_link4,
       iframe_link5,
+      iframe_link6,
+      iframe_link7,
+      iframe_link8,
+      iframe_link9,
+      iframe_link10,
       category_ids,
       quality_ids,
       actors_ids,
@@ -167,11 +187,21 @@ export default function AddMovie() {
       formData.append('download_link3', download_link3);
       formData.append('download_link4', download_link4);
       formData.append('download_link5', download_link5);
+      formData.append('download_link6', download_link6);
+      formData.append('download_link7', download_link7);
+      formData.append('download_link8', download_link8);
+      formData.append('download_link9', download_link9);
+      formData.append('download_link10', download_link10);
       formData.append('iframe_link1', iframe_link1);
       formData.append('iframe_link2', iframe_link2);
       formData.append('iframe_link3', iframe_link3);
       formData.append('iframe_link4', iframe_link4);
       formData.append('iframe_link5', iframe_link5);
+      formData.append('iframe_link6', iframe_link6);
+      formData.append('iframe_link7', iframe_link7);
+      formData.append('iframe_link8', iframe_link8);
+      formData.append('iframe_link9', iframe_link9);
+      formData.append('iframe_link10', iframe_link10);
       formData.append('thumbnail', thumbnail);
       formData.append('year', year);
       formData.append('duration', duration);
@@ -192,7 +222,7 @@ export default function AddMovie() {
         if (res?.data?.status === true) {
           setLoader(false);
           success_toaster(res?.data?.message);
-          navigate("/");
+          navigate('/');
           setAddMovie({
             title: '',
             thumbnail: null,
@@ -203,11 +233,21 @@ export default function AddMovie() {
             download_link3: '',
             download_link4: '',
             download_link5: '',
+            download_link6: '',
+            download_link7: '',
+            download_link8: '',
+            download_link9: '',
+            download_link10: '',
             iframe_link1: '',
             iframe_link2: '',
             iframe_link3: '',
             iframe_link4: '',
             iframe_link5: '',
+            iframe_link6: '',
+            iframe_link7: '',
+            iframe_link8: '',
+            iframe_link9: '',
+            iframe_link10: '',
             year: '',
             duration: '',
             uploadBy: '',
@@ -223,7 +263,6 @@ export default function AddMovie() {
         } else {
           setLoader(false);
           info_toaster(res?.data?.message);
-         
         }
       } catch (error) {
         setLoader(false);
@@ -330,8 +369,6 @@ export default function AddMovie() {
                     className={inputStyle}
                   />
                 </div>
-              </div>
-              <div className="flex gap-4">
                 <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="download_link2">
                     Download Link 2
@@ -347,6 +384,7 @@ export default function AddMovie() {
                   />
                 </div>
               </div>
+
               <div className="flex gap-4">
                 <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="download_link3">
@@ -362,8 +400,6 @@ export default function AddMovie() {
                     className={inputStyle}
                   />
                 </div>
-              </div>
-              <div className="flex gap-4">
                 <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="download_link4">
                     Download Link 4
@@ -379,6 +415,7 @@ export default function AddMovie() {
                   />
                 </div>
               </div>
+
               <div className="flex gap-4">
                 <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="download_link5">
@@ -394,7 +431,83 @@ export default function AddMovie() {
                     className={inputStyle}
                   />
                 </div>
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle} htmlFor="download_link6">
+                    Download Link 6
+                  </label>
+                  <input
+                    value={addMovie?.download_link6}
+                    onChange={onChange}
+                    type="text"
+                    name="download_link6"
+                    id="download_link6"
+                    placeholder="download_link6"
+                    className={inputStyle}
+                  />
+                </div>
               </div>
+
+              <div className="flex gap-4">
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle} htmlFor="download_link7">
+                    Download Link 7
+                  </label>
+                  <input
+                    value={addMovie?.download_link7}
+                    onChange={onChange}
+                    type="text"
+                    name="download_link7"
+                    id="download_link7"
+                    placeholder="download_link7"
+                    className={inputStyle}
+                  />
+                </div>
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle} htmlFor="download_link8">
+                    Download Link 8
+                  </label>
+                  <input
+                    value={addMovie?.download_link8}
+                    onChange={onChange}
+                    type="text"
+                    name="download_link8"
+                    id="download_link8"
+                    placeholder="download_link8"
+                    className={inputStyle}
+                  />
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle} htmlFor="download_link9">
+                    Download Link 9
+                  </label>
+                  <input
+                    value={addMovie?.download_link9}
+                    onChange={onChange}
+                    type="text"
+                    name="download_link9"
+                    id="download_link9"
+                    placeholder="download_link9"
+                    className={inputStyle}
+                  />
+                </div>
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle} htmlFor="download_link10">
+                    Download Link 10
+                  </label>
+                  <input
+                    value={addMovie?.download_link10}
+                    onChange={onChange}
+                    type="text"
+                    name="download_link10"
+                    id="download_link10"
+                    placeholder="download_link10"
+                    className={inputStyle}
+                  />
+                </div>
+              </div>
+
               <div className="flex gap-4">
                 <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="iframe_link1">
@@ -410,8 +523,6 @@ export default function AddMovie() {
                     className={inputStyle}
                   />
                 </div>
-              </div>
-              <div className="flex gap-4">
                 <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="iframe_link2">
                     Iframe Link 2
@@ -427,6 +538,7 @@ export default function AddMovie() {
                   />
                 </div>
               </div>
+
               <div className="flex gap-4">
                 <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="iframe_link3">
@@ -442,8 +554,6 @@ export default function AddMovie() {
                     className={inputStyle}
                   />
                 </div>
-              </div>
-              <div className="flex gap-4">
                 <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="iframe_link4">
                     Iframe Link 4
@@ -459,6 +569,7 @@ export default function AddMovie() {
                   />
                 </div>
               </div>
+
               <div className="flex gap-4">
                 <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="iframe_link5">
@@ -474,7 +585,84 @@ export default function AddMovie() {
                     className={inputStyle}
                   />
                 </div>
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle} htmlFor="iframe_link6">
+                    Iframe Link 6
+                  </label>
+                  <input
+                    value={addMovie?.iframe_link6}
+                    onChange={onChange}
+                    type="text"
+                    name="iframe_link6"
+                    id="iframe_link6"
+                    placeholder="iframe_link6"
+                    className={inputStyle}
+                  />
+                </div>
               </div>
+
+              <div className="flex gap-4">
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle} htmlFor="iframe_link7">
+                    Iframe Link 7
+                  </label>
+                  <input
+                    value={addMovie?.iframe_link7}
+                    onChange={onChange}
+                    type="text"
+                    name="iframe_link7"
+                    id="iframe_link7"
+                    placeholder="iframe_link7"
+                    className={inputStyle}
+                  />
+                </div>
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle} htmlFor="iframe_link8">
+                    Iframe Link 8
+                  </label>
+                  <input
+                    value={addMovie?.iframe_link8}
+                    onChange={onChange}
+                    type="text"
+                    name="iframe_link8"
+                    id="iframe_link8"
+                    placeholder="iframe_link8"
+                    className={inputStyle}
+                  />
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle} htmlFor="iframe_link9">
+                    Iframe Link 9
+                  </label>
+                  <input
+                    value={addMovie?.iframe_link9}
+                    onChange={onChange}
+                    type="text"
+                    name="iframe_link9"
+                    id="iframe_link9"
+                    placeholder="iframe_link9"
+                    className={inputStyle}
+                  />
+                </div>
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle} htmlFor="iframe_link10">
+                    Iframe Link 10
+                  </label>
+                  <input
+                    value={addMovie?.iframe_link10}
+                    onChange={onChange}
+                    type="text"
+                    name="iframe_link10"
+                    id="iframe_link10"
+                    placeholder="iframe_link10"
+                    className={inputStyle}
+                  />
+                </div>
+              </div>
+
               <div className="flex gap-x-4">
                 <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="year">

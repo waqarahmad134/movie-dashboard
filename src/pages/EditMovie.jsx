@@ -12,44 +12,49 @@ export default function EditMovie() {
   const location = useLocation();
   const navigate = useNavigate();
   const movie = location?.state || {};
-  console.log("🚀 ~ EditMovie ~ movie:", movie)
-  
-  const PreviousCategories = movie?.categories?.map((data) => ({
-    value: data.id,
-    label: data.name,
-  })) || [];
+  console.log('🚀 ~ EditMovie ~ movie:', movie);
 
-  const PreviousQualtity = movie?.qualities?.map((data) => ({
-    value: data.id,
-    label: data.name,
-  })) || [];
+  const PreviousCategories =
+    movie?.categories?.map((data) => ({
+      value: data.id,
+      label: data.name,
+    })) || [];
 
-  const PreviousActors = movie?.actors?.map((data) => ({
-    value: data.id,
-    label: data.name,
-  })) || [];
+  const PreviousQualtity =
+    movie?.qualities?.map((data) => ({
+      value: data.id,
+      label: data.name,
+    })) || [];
 
-  const PreviousActresses = movie?.actresses?.map((data) => ({
-    value: data.id,
-    label: data.name,
-  })) || [];
+  const PreviousActors =
+    movie?.actors?.map((data) => ({
+      value: data.id,
+      label: data.name,
+    })) || [];
 
-  const PreviousSeasons = movie?.seasons?.map((data) => ({
-    value: data.id,
-    label: data.name,
-  })) || [];
+  const PreviousActresses =
+    movie?.actresses?.map((data) => ({
+      value: data.id,
+      label: data.name,
+    })) || [];
 
-  const PreviouSouthActor = movie?.south_actor?.map((data) => ({
-    value: data.id,
-    label: data.name,
-  })) || [];
+  const PreviousSeasons =
+    movie?.seasons?.map((data) => ({
+      value: data.id,
+      label: data.name,
+    })) || [];
 
-  const PreviouTags = movie?.tags?.map((data) => ({
-    value: data.id,
-    label: data.name,
-  })) || [];
+  const PreviouSouthActor =
+    movie?.south_actor?.map((data) => ({
+      value: data.id,
+      label: data.name,
+    })) || [];
 
-
+  const PreviouTags =
+    movie?.tags?.map((data) => ({
+      value: data.id,
+      label: data.name,
+    })) || [];
 
   const [loader, setLoader] = useState(false);
   const [disabled, setDisabled] = useState(false);
@@ -64,11 +69,21 @@ export default function EditMovie() {
     download_link3: movie.download_link3,
     download_link4: movie.download_link4,
     download_link5: movie.download_link5,
+    download_link6: movie.download_link6,
+    download_link7: movie.download_link7,
+    download_link8: movie.download_link8,
+    download_link9: movie.download_link9,
+    download_link10: movie.download_link10,
     iframe_link1: movie.iframe_link1,
     iframe_link2: movie.iframe_link2,
     iframe_link3: movie.iframe_link3,
     iframe_link4: movie.iframe_link4,
     iframe_link5: movie.iframe_link5,
+    iframe_link6: movie.iframe_link6,
+    iframe_link7: movie.iframe_link7,
+    iframe_link8: movie.iframe_link8,
+    iframe_link9: movie.iframe_link9,
+    iframe_link10: movie.iframe_link10,
     year: movie.year,
     duration: movie.duration,
     director: movie.director,
@@ -91,12 +106,11 @@ export default function EditMovie() {
   const seasons = GetAPI('seasons');
 
   const categoryOptions =
-  categories?.data?.data?.map((category) => ({
-    value: category.id,
-    label: category.name,
-  })) || [];
+    categories?.data?.data?.map((category) => ({
+      value: category.id,
+      label: category.name,
+    })) || [];
 
-  
   const actorOptions =
     actors?.data?.data?.map((actor) => ({
       value: actor.id,
@@ -136,54 +150,65 @@ export default function EditMovie() {
   const handleCategoriesChange = (selectedCategories) => {
     setUpdateMovie((prevMovie) => ({
       ...prevMovie,
-      category_ids: selectedCategories ? selectedCategories.map(cat => String(cat.value)) : [],
+      category_ids: selectedCategories
+        ? selectedCategories.map((cat) => String(cat.value))
+        : [],
     }));
   };
 
   const handleQuality = (selectedQuality) => {
     setUpdateMovie((prevMovie) => ({
       ...prevMovie,
-      quality_ids: selectedQuality ? selectedQuality.map(cat => String(cat.value)) : [],
+      quality_ids: selectedQuality
+        ? selectedQuality.map((cat) => String(cat.value))
+        : [],
     }));
   };
-  
+
   const handleActors = (selectedActors) => {
     setUpdateMovie((prevMovie) => ({
       ...prevMovie,
-      actors_ids: selectedActors ? selectedActors.map(cat => String(cat.value)) : [],
+      actors_ids: selectedActors
+        ? selectedActors.map((cat) => String(cat.value))
+        : [],
     }));
   };
 
   const handleActress = (selectedActress) => {
     setUpdateMovie((prevMovie) => ({
       ...prevMovie,
-      actresses_ids: selectedActress ? selectedActress.map(cat => String(cat.value)) : [],
+      actresses_ids: selectedActress
+        ? selectedActress.map((cat) => String(cat.value))
+        : [],
     }));
   };
 
   const handleSouthActors = (selectedSouthActors) => {
     setUpdateMovie((prevMovie) => ({
       ...prevMovie,
-      south_actor_ids: selectedSouthActors ? selectedSouthActors.map(cat => String(cat.value)) : [],
+      south_actor_ids: selectedSouthActors
+        ? selectedSouthActors.map((cat) => String(cat.value))
+        : [],
     }));
   };
 
   const handleTags = (selectedTags) => {
     setUpdateMovie((prevMovie) => ({
       ...prevMovie,
-      tags_ids: selectedTags ? selectedTags.map(cat => String(cat.value)) : [],
+      tags_ids: selectedTags
+        ? selectedTags.map((cat) => String(cat.value))
+        : [],
     }));
   };
 
   const handleSeasons = (selectedSeasons) => {
     setUpdateMovie((prevMovie) => ({
       ...prevMovie,
-      seasons_ids: selectedSeasons ? selectedSeasons.map(cat => String(cat.value)) : [],
+      seasons_ids: selectedSeasons
+        ? selectedSeasons.map((cat) => String(cat.value))
+        : [],
     }));
   };
-  
-  
-  
 
   const onChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -225,11 +250,21 @@ export default function EditMovie() {
       download_link3,
       download_link4,
       download_link5,
+      download_link6,
+      download_link7,
+      download_link8,
+      download_link9,
+      download_link10,
       iframe_link1,
       iframe_link2,
       iframe_link3,
       iframe_link4,
       iframe_link5,
+      iframe_link6,
+      iframe_link7,
+      iframe_link8,
+      iframe_link9,
+      iframe_link10,
       category_ids,
       quality_ids,
       actors_ids,
@@ -259,11 +294,21 @@ export default function EditMovie() {
     formData.append('download_link3', download_link3 || '');
     formData.append('download_link4', download_link4 || '');
     formData.append('download_link5', download_link5 || '');
+    formData.append('download_link6', download_link6 || '');
+    formData.append('download_link7', download_link7 || '');
+    formData.append('download_link8', download_link8 || '');
+    formData.append('download_link9', download_link9 || '');
+    formData.append('download_link10', download_link10 || '');
     formData.append('iframe_link1', iframe_link1 || '');
     formData.append('iframe_link2', iframe_link2 || '');
     formData.append('iframe_link3', iframe_link3 || '');
     formData.append('iframe_link4', iframe_link4 || '');
     formData.append('iframe_link5', iframe_link5 || '');
+    formData.append('iframe_link6', iframe_link6 || '');
+    formData.append('iframe_link7', iframe_link7 || '');
+    formData.append('iframe_link8', iframe_link8 || '');
+    formData.append('iframe_link9', iframe_link9 || '');
+    formData.append('iframe_link10', iframe_link10 || '');
     formData.append('year', year || '');
     formData.append('duration', duration || '');
     formData.append('director', director || '');
@@ -409,8 +454,6 @@ export default function EditMovie() {
                     className={inputStyle}
                   />
                 </div>
-              </div>
-              <div className="flex gap-4">
                 <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="download_link2">
                     Download Link 2
@@ -426,6 +469,7 @@ export default function EditMovie() {
                   />
                 </div>
               </div>
+
               <div className="flex gap-4">
                 <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="download_link3">
@@ -441,8 +485,6 @@ export default function EditMovie() {
                     className={inputStyle}
                   />
                 </div>
-              </div>
-              <div className="flex gap-4">
                 <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="download_link4">
                     Download Link 4
@@ -458,6 +500,7 @@ export default function EditMovie() {
                   />
                 </div>
               </div>
+
               <div className="flex gap-4">
                 <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="download_link5">
@@ -473,7 +516,84 @@ export default function EditMovie() {
                     className={inputStyle}
                   />
                 </div>
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle} htmlFor="download_link6">
+                    Download Link 6
+                  </label>
+                  <input
+                    value={editMovie?.download_link6}
+                    onChange={onChange}
+                    type="text"
+                    name="download_link6"
+                    id="download_link6"
+                    placeholder="download_link6"
+                    className={inputStyle}
+                  />
+                </div>
               </div>
+
+              <div className="flex gap-4">
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle} htmlFor="download_link7">
+                    Download Link 7
+                  </label>
+                  <input
+                    value={editMovie?.download_link7}
+                    onChange={onChange}
+                    type="text"
+                    name="download_link7"
+                    id="download_link7"
+                    placeholder="download_link7"
+                    className={inputStyle}
+                  />
+                </div>
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle} htmlFor="download_link8">
+                    Download Link 8
+                  </label>
+                  <input
+                    value={editMovie?.download_link8}
+                    onChange={onChange}
+                    type="text"
+                    name="download_link8"
+                    id="download_link8"
+                    placeholder="download_link8"
+                    className={inputStyle}
+                  />
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle} htmlFor="download_link9">
+                    Download Link 9
+                  </label>
+                  <input
+                    value={editMovie?.download_link9}
+                    onChange={onChange}
+                    type="text"
+                    name="download_link9"
+                    id="download_link9"
+                    placeholder="download_link9"
+                    className={inputStyle}
+                  />
+                </div>
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle} htmlFor="download_link10">
+                    Download Link 10
+                  </label>
+                  <input
+                    value={editMovie?.download_link10}
+                    onChange={onChange}
+                    type="text"
+                    name="download_link10"
+                    id="download_link10"
+                    placeholder="download_link10"
+                    className={inputStyle}
+                  />
+                </div>
+              </div>
+
               <div className="flex gap-4">
                 <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="iframe_link1">
@@ -489,8 +609,6 @@ export default function EditMovie() {
                     className={inputStyle}
                   />
                 </div>
-              </div>
-              <div className="flex gap-4">
                 <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="iframe_link2">
                     Iframe Link 2
@@ -506,6 +624,7 @@ export default function EditMovie() {
                   />
                 </div>
               </div>
+
               <div className="flex gap-4">
                 <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="iframe_link3">
@@ -521,8 +640,6 @@ export default function EditMovie() {
                     className={inputStyle}
                   />
                 </div>
-              </div>
-              <div className="flex gap-4">
                 <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="iframe_link4">
                     Iframe Link 4
@@ -550,6 +667,80 @@ export default function EditMovie() {
                     name="iframe_link5"
                     id="iframe_link5"
                     placeholder="iframe_link5"
+                    className={inputStyle}
+                  />
+                </div>
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle} htmlFor="iframe_link6">
+                    Iframe Link 6
+                  </label>
+                  <input
+                    value={editMovie?.iframe_link6}
+                    onChange={onChange}
+                    type="text"
+                    name="iframe_link6"
+                    id="iframe_link6"
+                    placeholder="iframe_link6"
+                    className={inputStyle}
+                  />
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle} htmlFor="iframe_link7">
+                    Iframe Link 7
+                  </label>
+                  <input
+                    value={editMovie?.iframe_link7}
+                    onChange={onChange}
+                    type="text"
+                    name="iframe_link7"
+                    id="iframe_link7"
+                    placeholder="iframe_link7"
+                    className={inputStyle}
+                  />
+                </div>
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle} htmlFor="iframe_link8">
+                    Iframe Link 8
+                  </label>
+                  <input
+                    value={editMovie?.iframe_link8}
+                    onChange={onChange}
+                    type="text"
+                    name="iframe_link8"
+                    id="iframe_link8"
+                    placeholder="iframe_link8"
+                    className={inputStyle}
+                  />
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle} htmlFor="iframe_link9">
+                    Iframe Link 9
+                  </label>
+                  <input
+                    value={editMovie?.iframe_link9}
+                    onChange={onChange}
+                    type="text"
+                    name="iframe_link9"
+                    id="iframe_link9"
+                    placeholder="iframe_link9"
+                    className={inputStyle}
+                  />
+                </div>
+                <div className="space-y-1 w-full">
+                  <label className={labelStyle} htmlFor="iframe_link10">
+                    Iframe Link 10
+                  </label>
+                  <input
+                    value={editMovie?.iframe_link10}
+                    onChange={onChange}
+                    type="text"
+                    name="iframe_link10"
+                    id="iframe_link10"
+                    placeholder="iframe_link10"
                     className={inputStyle}
                   />
                 </div>
@@ -615,9 +806,7 @@ export default function EditMovie() {
               </div>
               <div className="flex gap-x-4">
                 <div className="space-y-1 w-full">
-                  <label className={labelStyle}>
-                    Categories
-                  </label>
+                  <label className={labelStyle}>Categories</label>
                   <Select
                     onChange={handleCategoriesChange}
                     defaultValue={PreviousCategories}
@@ -629,9 +818,7 @@ export default function EditMovie() {
               </div>
               <div className="flex gap-x-4">
                 <div className="space-y-1 w-full">
-                  <label className={labelStyle}>
-                    Quality
-                  </label>
+                  <label className={labelStyle}>Quality</label>
                   <Select
                     onChange={handleQuality}
                     defaultValue={PreviousQualtity}
@@ -643,9 +830,7 @@ export default function EditMovie() {
               </div>
               <div className="flex gap-x-4">
                 <div className="space-y-1 w-full">
-                  <label className={labelStyle}>
-                    Actors
-                  </label>
+                  <label className={labelStyle}>Actors</label>
                   <Select
                     onChange={handleActors}
                     defaultValue={PreviousActors}
@@ -657,9 +842,7 @@ export default function EditMovie() {
               </div>
               <div className="flex gap-x-4">
                 <div className="space-y-1 w-full">
-                  <label className={labelStyle}>
-                    Actress
-                  </label>
+                  <label className={labelStyle}>Actress</label>
                   <Select
                     onChange={handleActress}
                     defaultValue={PreviousActresses}
@@ -671,9 +854,7 @@ export default function EditMovie() {
               </div>
               <div className="flex gap-x-4">
                 <div className="space-y-1 w-full">
-                  <label className={labelStyle}>
-                    South Actors
-                  </label>
+                  <label className={labelStyle}>South Actors</label>
                   <Select
                     onChange={handleSouthActors}
                     defaultValue={PreviouSouthActor}
@@ -685,9 +866,7 @@ export default function EditMovie() {
               </div>
               <div className="flex gap-x-4">
                 <div className="space-y-1 w-full">
-                  <label className={labelStyle}>
-                    Tags
-                  </label>
+                  <label className={labelStyle}>Tags</label>
                   <Select
                     onChange={handleTags}
                     defaultValue={PreviouTags}
@@ -699,9 +878,7 @@ export default function EditMovie() {
               </div>
               <div className="flex gap-x-4">
                 <div className="space-y-1 w-full">
-                  <label className={labelStyle}>
-                    Seasons
-                  </label>
+                  <label className={labelStyle}>Seasons</label>
                   <Select
                     onChange={handleSeasons}
                     defaultValue={PreviousSeasons}
