@@ -12,7 +12,6 @@ export default function EditMovie() {
   const location = useLocation();
   const navigate = useNavigate();
   const movie = location?.state || {};
-  console.log("🚀 ~ EditMovie ~ movie:", movie)
 
   const PreviousCategories =
     movie?.categories?.map((data) => ({
