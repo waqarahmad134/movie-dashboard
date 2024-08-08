@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Logo from '../../images/logo/logo.png';
 import { PostAPI } from '../../utilities/PostAPI';
 import {
   error_toaster,

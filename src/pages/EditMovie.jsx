@@ -12,7 +12,7 @@ export default function EditMovie() {
   const location = useLocation();
   const navigate = useNavigate();
   const movie = location?.state || {};
-  console.log('🚀 ~ EditMovie ~ movie:', movie);
+  console.log("🚀 ~ EditMovie ~ movie:", movie)
 
   const PreviousCategories =
     movie?.categories?.map((data) => ({
@@ -84,6 +84,16 @@ export default function EditMovie() {
     iframe_link8: movie.iframe_link8,
     iframe_link9: movie.iframe_link9,
     iframe_link10: movie.iframe_link10,
+    iframeMobile1: movie.iframeMobile1,
+    iframeMobile2: movie.iframeMobile2,
+    iframeMobile3: movie.iframeMobile3,
+    iframeMobile4: movie.iframeMobile4,
+    iframeMobile5: movie.iframeMobile5,
+    iframeMobile6: movie.iframeMobile6,
+    iframeMobile7: movie.iframeMobile7,
+    iframeMobile8: movie.iframeMobile8,
+    iframeMobile9: movie.iframeMobile9,
+    iframeMobile10: movie.iframeMobile10,
     year: movie.year,
     duration: movie.duration,
     director: movie.director,
@@ -97,6 +107,7 @@ export default function EditMovie() {
     seasons_ids: [],
   });
 
+  console.log(editMovie)
   const categories = GetAPI('categories');
   const actors = GetAPI('actors');
   const actress = GetAPI('actress');
@@ -313,6 +324,13 @@ export default function EditMovie() {
     formData.append('duration', duration || '');
     formData.append('director', director || '');
     formData.append('uploadBy', uploadBy || '');
+    for (let i = 1; i <= 10; i++) {
+      formData.append(
+        `iframeMobile${i}`,
+        editMovie[`iframeMobile${i}`] ? 1 : 0,
+      );
+    }
+
     if (thumbnail) {
       formData.append('thumbnail', thumbnail);
     }
@@ -357,6 +375,15 @@ export default function EditMovie() {
       setLoader(false);
     }
   };
+
+  const handleCheckboxChange = (event) => {
+    const { name, checked } = event.target;
+    setUpdateMovie((prevState) => ({
+      ...prevState,
+      [name]: checked,
+    }));
+  };
+
   return (
     <>
       <DefaultLayout>
@@ -598,6 +625,15 @@ export default function EditMovie() {
                 <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="iframe_link1">
                     Iframe Link
+                    <div className="flex items-center gap-x-2">
+                      Show in Mobile
+                      <input
+                        onChange={handleCheckboxChange}
+                        name="iframeMobile1"
+                        type="checkbox"
+                        checked={editMovie.iframeMobile1}
+                      />
+                    </div>
                   </label>
                   <input
                     value={editMovie?.iframe_link1}
@@ -612,6 +648,15 @@ export default function EditMovie() {
                 <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="iframe_link2">
                     Iframe Link 2
+                    <div className="flex items-center gap-x-2">
+                      Show in Mobile
+                      <input
+                        onChange={handleCheckboxChange}
+                        name="iframeMobile2"
+                        type="checkbox"
+                        checked={editMovie.iframeMobile2}
+                      />
+                    </div>
                   </label>
                   <input
                     value={editMovie?.iframe_link2}
@@ -629,6 +674,15 @@ export default function EditMovie() {
                 <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="iframe_link3">
                     Iframe Link 3
+                    <div className="flex items-center gap-x-2">
+                      Show in Mobile
+                      <input
+                        onChange={handleCheckboxChange}
+                        name="iframeMobile3"
+                        type="checkbox"
+                        checked={editMovie.iframeMobile3}
+                      />
+                    </div>
                   </label>
                   <input
                     value={editMovie?.iframe_link3}
@@ -643,6 +697,15 @@ export default function EditMovie() {
                 <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="iframe_link4">
                     Iframe Link 4
+                    <div className="flex items-center gap-x-2">
+                      Show in Mobile
+                      <input
+                        onChange={handleCheckboxChange}
+                        name="iframeMobile4"
+                        type="checkbox"
+                        checked={editMovie.iframeMobile4}
+                      />
+                    </div>
                   </label>
                   <input
                     value={editMovie?.iframe_link4}
@@ -659,6 +722,15 @@ export default function EditMovie() {
                 <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="iframe_link5">
                     Iframe Link 5
+                    <div className="flex items-center gap-x-2">
+                      Show in Mobile
+                      <input
+                        onChange={handleCheckboxChange}
+                        name="iframeMobile5"
+                        type="checkbox"
+                        checked={editMovie.iframeMobile5}
+                      />
+                    </div>
                   </label>
                   <input
                     value={editMovie?.iframe_link5}
@@ -673,6 +745,15 @@ export default function EditMovie() {
                 <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="iframe_link6">
                     Iframe Link 6
+                    <div className="flex items-center gap-x-2">
+                      Show in Mobile
+                      <input
+                        onChange={handleCheckboxChange}
+                        name="iframeMobile6"
+                        type="checkbox"
+                        checked={editMovie.iframeMobile6}
+                      />
+                    </div>
                   </label>
                   <input
                     value={editMovie?.iframe_link6}
@@ -689,6 +770,15 @@ export default function EditMovie() {
                 <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="iframe_link7">
                     Iframe Link 7
+                    <div className="flex items-center gap-x-2">
+                      Show in Mobile
+                      <input
+                        onChange={handleCheckboxChange}
+                        name="iframeMobile7"
+                        type="checkbox"
+                        checked={editMovie.iframeMobile7}
+                      />
+                    </div>
                   </label>
                   <input
                     value={editMovie?.iframe_link7}
@@ -703,6 +793,15 @@ export default function EditMovie() {
                 <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="iframe_link8">
                     Iframe Link 8
+                    <div className="flex items-center gap-x-2">
+                      Show in Mobile
+                      <input
+                        onChange={handleCheckboxChange}
+                        name="iframeMobile8"
+                        type="checkbox"
+                        checked={editMovie.iframeMobile8}
+                      />
+                    </div>
                   </label>
                   <input
                     value={editMovie?.iframe_link8}
@@ -719,6 +818,15 @@ export default function EditMovie() {
                 <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="iframe_link9">
                     Iframe Link 9
+                    <div className="flex items-center gap-x-2">
+                      Show in Mobile
+                      <input
+                        onChange={handleCheckboxChange}
+                        name="iframeMobile9"
+                        type="checkbox"
+                        checked={editMovie.iframeMobile9}
+                      />
+                    </div>
                   </label>
                   <input
                     value={editMovie?.iframe_link9}
@@ -733,6 +841,15 @@ export default function EditMovie() {
                 <div className="space-y-1 w-full">
                   <label className={labelStyle} htmlFor="iframe_link10">
                     Iframe Link 10
+                    <div className="flex items-center gap-x-2">
+                      Show in Mobile
+                      <input
+                        onChange={handleCheckboxChange}
+                        name="iframeMobile10"
+                        type="checkbox"
+                        checked={editMovie.iframeMobile10}
+                      />
+                    </div>
                   </label>
                   <input
                     value={editMovie?.iframe_link10}
